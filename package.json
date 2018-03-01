@@ -1,0 +1,31 @@
+{
+  "name": "capstoneback",
+  "version": "1.0.0",
+  "description": "The API for a React volunteering App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheRobQ/vol_back.git"
+  },
+  "keywords": [
+    "volunteering",
+    "node",
+    "express",
+    "knex"
+  ],
+  "author": "Rob Quan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheRobQ/vol_back/issues"
+  },
+  "homepage": "https://github.com/TheRobQ/vol_back#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.2",
+    "knex": "^0.14.4"
+  }
+}
