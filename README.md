@@ -5,6 +5,8 @@
 <br />
 [Trello planning board](https://trello.com/b/AnKfAtHm/q4-project)
 <br />
+[Style Guide](https://docs.google.com/document/d/1vwwd1SpkVFN1Wj8NOGIcw4nZZr64T50SNsffePBzmL4/edit?usp=sharing)
+<br />
 <br />
 ![colors](https://github.com/TheRobQ/vol_back/blob/master/img/Colors.png)
 <br />
