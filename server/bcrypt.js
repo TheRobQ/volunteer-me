@@ -32,7 +32,6 @@ const compare = (req,res,sendit)=>{
     if(user ===  undefined){
       res.sendStatus(404)
     }
-    console.log(user);
     bcrypt.compare(req.body.password, user.password, function(err, ver) {
         ver ? res.status(200).send({id:user.id}): res.sendStatus(401)
     })
