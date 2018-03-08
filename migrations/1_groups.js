@@ -4,7 +4,6 @@ exports.up = function(knex, Promise) {
   table.increments('id')
   table.string('name').notNullable()
   table.integer('goal_hours').notNullable().defaultsTo(0)
-  table.integer('current_hours').notNullable().defaultsTo(0)
   table.timestamps(true, true)
 })
 };
