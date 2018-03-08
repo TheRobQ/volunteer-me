@@ -14,7 +14,6 @@ suite('user test', addDatabaseHooks(() => {
       lastName: 'Quan',
       email: 'rob.qun@gmail.com',
       password: 'dogs1234',
-      current_hours: 0,
       goal: 12,
       group_id: 1,
     }).expect(204, {}, done)

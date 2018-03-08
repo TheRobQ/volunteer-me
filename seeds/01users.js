@@ -8,7 +8,7 @@ exports.seed = function(knex, Promise) {
         {firstName: 'Rob',
         lastName: 'Quan',
         email: 'rob.quan@gmail.com',
-        password: '$2a$04$pF4BFJjlwlNftAVlxYmqTujwbUahKvyYH/dt8u/8JUmk80n5PGTwm', current_hours:'0',
+        password: '$2a$04$pF4BFJjlwlNftAVlxYmqTujwbUahKvyYH/dt8u/8JUmk80n5PGTwm', 
         goal:'15',
         group_id: 1,
         salt: '$2a$04$pF4BFJjlwlNftAVlxYmqTu'},
