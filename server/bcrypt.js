@@ -14,7 +14,6 @@ const store = (req,res,sendit)=>{
     email:req.body.email,
     password:hash,
     salt:salt,
-    current_hours:req.body.current_hours,
     goal: req.body.goal,
     group_id: req.body.group_id,
   },'*')

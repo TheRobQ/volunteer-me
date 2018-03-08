@@ -11,6 +11,7 @@ exports.up = function(knex, Promise) {
     table.string('role').notNullable()
     table.integer('hours')
     table.integer('minutes').notNullable().defaultsTo(30)
+    table.string('date').notNullable()
     table.timestamps(true, true)
   })
 }

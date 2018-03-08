@@ -17,6 +17,7 @@ exports.seed = function(knex, Promise) {
         {name: 'Senior meal delivery', cause_id:'18'},
         {name: 'Youth Mentoring organization', cause_id:'22'},
         {name: 'Local animal rescue', cause_id:'2'},
+        {name: 'Local Police', cause_id:'5'},
       ]);
     });
 };

@@ -9,13 +9,13 @@ const routes = require('../server/routes.js')
 suite('user test', addDatabaseHooks(() => {
   test('POST /users',
   function(done) {
-    request(app).post('/users').set('Accept', 'application/json').send({
-      firstName: 'Rob',
-      lastName: 'Quan',
-      email: 'rob.qun@gmail.com',
-      password: 'dogs1234',
-      goal: 12,
-      group_id: 1,
-    }).expect(204, {}, done)
+    request(app).post('/users').set('Accept', 'application/json').send(
+{  firstName: "Irma",
+  lastName: "Patterson",
+  email: 'irma2@gmail.com',
+  password: 'dogs123',
+  goal:16,
+  group_id: 5})
+  .expect(204, {}, done)
   });
 }))
