@@ -8,7 +8,7 @@ const scripts = require('./scripts')
 //const bcrypt = require('bcrypt');
 
 router.post('/users',  logins.store)
-router.post('/user',  logins.store)
+router.post('/user',  logins.compare)
 router.get('/users', logins.compare)
 router.get('./users/:id', scripts.userInfo)
 router.get('users/:id/expereinces', scripts.experiences)

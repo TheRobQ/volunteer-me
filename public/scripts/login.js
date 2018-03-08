@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
 
-  $(".signin").submit(function(event) {
+  $("#signin").submit(function(event) {
     event.preventDefault();
     console.log('clicked');
     const username = $("input#user").val().toLowerCase();
@@ -16,6 +16,7 @@ $(document).ready(function() {
       success: function(data) {
         localStorage.setItem("user", data.id)
         window.location.href = "landing.html"
+        console.log('success');
       },
       error: function(data) {
         console.log(data);
