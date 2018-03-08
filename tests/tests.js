@@ -12,7 +12,7 @@ suite('user test', addDatabaseHooks(() => {
     request(app).post('/users').set('Accept', 'application/json').send(
 {  firstName: "Irma",
   lastName: "Patterson",
-  email: 'irma2@gmail.com',
+  email: 'irma@gmail.com',
   password: 'dogs123',
   goal:16,
   group_id: 5})
