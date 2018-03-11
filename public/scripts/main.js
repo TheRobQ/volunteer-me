@@ -23,7 +23,6 @@ $(document).ready(function() {
       if(currentMinutes > 60){
         currentHours += Math.floor(currentMinutes / 60)
         currentMinutes = currentMinutes % 60
-        console.log(currentMinutes);
       }
       $('h1').append (`<p>${currentHours}:${currentMinutes}</p>`)
       },
@@ -38,8 +37,9 @@ $(document).ready(function() {
       }).done(
         function(response){
     $.get(`groups/${userData[0].group_id}`, data => {
-      groupData = groupData[0];
-      $('h1').append(`<p>${userData[0].goal}</p>`)
+      groupData = data[0];
+      console.log(groupData);
+      $('h1').append(`<p>${groupData.goal_hours}</p>`)
     })})
 
   })
