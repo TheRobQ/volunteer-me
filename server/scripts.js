@@ -4,10 +4,16 @@ const knex = require('../knex')
 const bodyParser = require('body-parser')
 
 const userInfo = (req, res, next) => {
-  return 'testing'
+  knex('users').select('*').where({id: req.params.id})
+  .then(data => {
+    res.status(200).send(data)
+  })
 }
 const experiences = (req, res, next) => {
-  return 'testing'
+  knex('experiences').select('*').where({user_id: req.params.id}).then(
+    data =>{
+      res.status(200).send(data)
+    })
 }
 
 const experience = (req, res, next) => {
@@ -27,7 +33,9 @@ const editExperience = (req, res, next) => {
 }
 
 const groupInfo =(req, res, next) => {
-  return 'testing'
+  console.log(req.params);
+  knex('groups').where({id: req.params.id}).select("*")
+  .then(data => res.status(200).send(data))
 }
 
 

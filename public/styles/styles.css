@@ -1,4 +1,6 @@
-
+.hidden{
+  display: none;
+}
 
 
 /* // Extra small devices (portrait phones, less than 576px) */
