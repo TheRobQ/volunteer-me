@@ -17,7 +17,7 @@ exports.seed = function(knex, Promise) {
           lastName: "Vermillion",
           email: 'doris@gmail.com',
           password: '$2a$04$8PMBDh7oqA.CdemjeaJ0pejMsBfnsRfurP29wI1PZ5AiK6Pqd55i6',
-          goal: 15,
+          goal: 35,
           group_id: 4,
           salt: '$2a$04$8PMBDh7oqA.CdemjeaJ0pe'
         },
@@ -26,7 +26,7 @@ exports.seed = function(knex, Promise) {
             lastName: "Patterson",
             email: 'irma@gmail.com',
             password: '$2a$04$tkD4lEMsCXrX3X1Eoa6NTuH96BgRPqAarB1G7WWt0i28132u6qHMK',
-            goal:16,
+            goal:40,
             group_id: 5,
             salt: '$2a$04$tkD4lEMsCXrX3X1Eoa6NTu'
         }

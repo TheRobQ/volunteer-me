@@ -20,11 +20,11 @@ $(document).ready(function() {
       },
       error: function(data) {
         console.log(data);
-        if(data .responseText === "Not Found"){
-          console.log(404)
+        if(data .status === 404){
+            $('#toast').removeClass('hidden')
         }
-        else if(data.responseText === "Unauthorized"){
-          console.log(404)
+        else if(data.status === 401){
+          $('#toast1').removeClass('hidden')
         }
 
       },
