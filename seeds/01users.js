@@ -9,15 +9,17 @@ exports.seed = function(knex, Promise) {
         lastName: 'Quan',
         email: 'rob.quan@gmail.com',
         password: '$2a$04$NycHwgYTeRQCLAwSmbAp7ucaR8V.TANgGfAN6usEnxH434NFBqeym',
-        goal: 15,
-        group_id: 1,
+        goal: 900,
+        towardGoal: 600,
+        group_id: 3,
         salt: '$2a$04$NycHwgYTeRQCLAwSmbAp7u'},
         {
           firstName: "Doris",
           lastName: "Vermillion",
           email: 'doris@gmail.com',
           password: '$2a$04$8PMBDh7oqA.CdemjeaJ0pejMsBfnsRfurP29wI1PZ5AiK6Pqd55i6',
-          goal: 35,
+          goal: 2100,
+          towardGoal: 900,
           group_id: 4,
           salt: '$2a$04$8PMBDh7oqA.CdemjeaJ0pe'
         },
@@ -26,7 +28,8 @@ exports.seed = function(knex, Promise) {
             lastName: "Patterson",
             email: 'irma@gmail.com',
             password: '$2a$04$tkD4lEMsCXrX3X1Eoa6NTuH96BgRPqAarB1G7WWt0i28132u6qHMK',
-            goal:40,
+            goal: 2400,
+            towardGoal: 1320,
             group_id: 5,
             salt: '$2a$04$tkD4lEMsCXrX3X1Eoa6NTu'
         }

@@ -1,35 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Voulenteering</title>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Voulenteering</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- custom CSS -->
+    <link rel='stylesheet' href='./styles/styles.css' />
+  </head>
 
-  <!-- Bootstrap -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-  <!-- custom CSS -->
-  <link rel='stylesheet' href='./styles/styles.css' />
-</head>
-
-<body>
-  <div class='container'>
-    <div id="chart">
-
+  <body>
+    <div class='container'>
+      <div id="welcome">
+      </div>
+      <div id="chart">
+      </div>
+      <div class=row>
+        <form id="setGoal">
+          <div class="form-group col-sm-10">
+            <label for="addGoal">Set your goal</label>
+            <input type="number" class="form-control" id="addGoal" placeholder="10" required>
+            <button type="submit" class="btn btn-primary" id='sendGoal'>Submit</button>
+          </div>
+        </form>
+      </div>
+      <div id='goal'>
+      </div>
+      <div id='main'>
+      </div>
+      <a href='/add.html'>Add an experience</a>
     </div>
-    <div id='main'>
-    </div>
-  </div>
 
 
 
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
-  <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
-  <script src="./scripts/main.js"></script>
-</body>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="./scripts/main.js"></script>
+    <script src="./scripts/experience.js"></script>
+  </body>
 
 </html>

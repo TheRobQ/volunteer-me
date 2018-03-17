@@ -1,65 +1,125 @@
+
 $(document).ready(function() {
   var goal = 0;
-  var currentHours = 0
-  var currentMinutes = 0
-  var totalMinutes = 0
+  var towardGoal = 0;
   const userId = localStorage.getItem("user");
   var experiences;
   var userData;
   var groupData;
+  var remaining = 0;
+  var orgs =[];
+  var modeObject = {};
 
   $('body').ready(function(event) {
     $.ajax({
       url: `/users/${userId}/experiences`,
-      type: 'GET',
+      method: 'GET',
       success: function(response) {
         experiences = response
       },
       error: function(response) {
         console.log(response);
       }
-    }).then(function(experiences){
+    }).done(function(experiences){
       for (let i = 0; i < experiences.length; i++) {
-        $('#main').append(`<h1 class='exHeader'>${experiences[i].title}</h1>
-        <p>${experiences[i].description}
-          `)
-        console.log(experiences)
-        currentHours += experiences[i].hours
-        currentMinutes += experiences[i].minutes
-      }
-      if (currentMinutes > 60) {
-        currentHours += Math.floor(currentMinutes / 60)
-        currentMinutes = currentMinutes % 60
+        $.ajax({
+          url: `/orgs/${experiences[i].org_id}`,
+          type: 'GET',
+          success: function(thedata){
+            orgs.push(thedata[0])
+          },
+          error: function(response){
+            console.log(response)
+          }
+        })
       }
     })
 
   $.get(`/users/${userId}`, function(response) {
     userData = response
-    console.log(userData);
-    $('#main').append(`<p>${userData[0].goal}</p>`)
-  }).then(function(response) {
-    $.get(`groups/${userData[0].group_id}`, data => {
-      groupData = data[0];
-      $('#main').append(`<p>${groupData.goal_hours}</p>`)
+    $('#welcome').append(`<h1>Hello, ${userData[0].firstName}</h1>`)
+    $('#welcome').append(`<h3>Your current goal: ${userData[0].goal /60} hours</h3>`)
     })
-  }).then(function(){
-      totalMinutes = (currentHours * 60) + currentMinutes
-      var goalMinutes = userData[0].goal * 60
+    .then(function(response) {
+      $.get(`groups/${userData[0].group_id}`, data => {
+      groupData = data[0];
+        })
+      })
 
-      console.log(userData[0].goal);
+  //Get Mode
+  const getMode = array => {
+    var maxCount = 1
+    var mostFrequent;
+    for (let i = 0; i < array.length; i++) {
+      var cause = array[i].cause;
+      if (!modeObject[cause]) {
+        modeObject[cause] = 1;
+      }else{
+      modeObject[cause]++
+    }
+      if(modeObject[cause] > maxCount){
+        maxCount = modeObject[cause]
+        mostFrequent = array[i].cause
+      }
+    }
+    return mostFrequent
+  };
+
+  const setOrg = (experiences, orgs) =>{
+    for(let i = 0; i < experiences.length; i++){
+      for(let j = 0; j < orgs.length; j++){
+        if(experiences[i].org_id === orgs[j].id){
+          experiences[i].org_id = orgs[j].name
+        }
+      }
+    }
+    return experiences
+  }
+
+//after all reqs made
+  $( document ).ajaxStop(function() {
+    console.log(experiences);
+    // console.log(userData);
+    // console.log(orgs);
+    console.log(groupData);
+    setOrg (experiences, orgs)
+    localStorage.setItem("group", groupData.id)
+
+    //Adding exp to your page
+    for(let i = 0; i < experiences.length; i++){
+      $('#main').append(`<h3 class="exHeader">${experiences[i].title}</h3>
+              <p class="exBody"><strong>Description: </strong>${experiences[i].description} </p>
+              <p class="exOrg"><strong>Organization</strong> ${experiences[i].org_id}</p>
+              <p classs="exDate"><strong>Date: </strong> ${experiences[i].date}</p>`)
+        }
+
+      //Adding Your causes to your page
+      $("#main").append(`<p><strong>Your current passion: </strong>${  getMode(orgs)}</p>`)
+      for(key in modeObject){
+        $("#main").append(`<p><strong>${key}: </strong> ${modeObject[key]}</p>`)
+      }
+       $("#main").append(`<h1>${groupData.current_hours}</h1>`)
+
+      //D3 main circle
+      const mainCircle = ()=> {
+      goal = userData[0].goal
+      towardGoal = userData[0].towardGoal
+      remaining = goal - towardGoal
+      let  currentHours = Math.floor(towardGoal / 60)
       var dataset = [
         {
-          hours: totalMinutes,
-          display: currentHours+':'+currentMinutes
+          hours: towardGoal,
+          display: currentHours
         },
         {
-          hours: goalMinutes - totalMinutes,
+          hours: remaining,
           display: 'none'
-        },]
+        }
+      ]
 
       var pie = d3.layout.pie().value(function(d) {
         return d.hours
-      }).padAngle(.02)
+      }).sort(null).padAngle(.02)
 
       var w = 350
       var h = 350
@@ -83,7 +143,6 @@ $(document).ready(function() {
       .attr({
         d: arc,
         fill: function(d, i) {
-          console.log(i)
           return color(i);
         }
       })
@@ -99,27 +158,47 @@ $(document).ready(function() {
       });
 
       svg
-      .append('text')
-      .transition()
-      .duration(900)
-      .attr('x', -94)
+      .append('svg:text')
+      .attr('x', -84)
       .attr('y', 30)
-      .attr('text-anchor', 'center')
+      .attr('class', 'id')
+      .append('svg:tspan')
+      .attr('x', -53)
+      .attr('dy', -15)
       .text(dataset[0].display)
-      .style({fill: 'black', 'font-size': '70px', 'font-family': 'helvetica'})
-    //   svg.selectAll("text.left")
-    //   .data(dataset)
-    //   .enter()
-    //   .append("text")
-    //   .transition()
-    //   .duration(1800)
-    //   .style('opacity', 6-1)
-    //   .attr('x', -152)
-    //   .attr('y', 8)
-    //   .text(function(d) {
-    //     return d.hoursLeft
-    //   })
-    //   .style({fill: 'white', 'font-size': '20px'});
+      .style({fill: 'black', 'font-size': '94px', 'font-family': 'helvetica', 'font-weight': 'bold'})
+      .append('text:tspan')
+      .attr('x', -49)
+      .attr('dy', 40)
+      .text('hours')
+      .style({fill: 'black', 'font-size': '40px', 'font-family': 'helvetica', 'font-weight': 200})
+      }
+      mainCircle()
     })
   })
+
+  $("#setGoal").submit(function(event) {
+      const value = $("input#addGoal").val();
+      const goal = parseInt(value) * 60
+      console.log('clicked');
+      $.ajax({
+        url: `/users/${userId}/`,
+        type: 'PATCH',
+        global: false,
+        data: {
+          goal: goal
+        },
+        success: function(data) {
+          console.log(data);
+        },
+        error: function(response) {
+          console.log(response);
+        }
+      })
+  })
 })
+
+// if (currentMinutes > 60) {
+//   currentHours += Math.floor(currentMinutes / 60)
+//   currentMinutes = currentMinutes % 60
+// }

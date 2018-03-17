@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Voulenteering</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- custom CSS -->
+    <link rel='stylesheet' href='./styles/styles.css' />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class=form>
+        <form id="newExperience">
+          <div class="form-group row col-sm-10">
+            <label for="what">Title</label>
+            <input type="text" class="form-control" id="what" placeholder="Title your experience" required>
+          </div>
+          <div class="form-group row col-sm-10">
+            <label for="description"> Description</label>
+            <textarea type="text" class="form-control" id="description" placeholder="Describe your experience" required cols="40" rows="5"></textarea>
+          </div>
+          <div class="form-group row col-sm-10">
+            <label for="org">Who did you volunteer for?</label>
+            <input type="text" class="form-control" id="org" placeholder="Organization" required>
+          </div>
+          <div class="form-group row col-sm-10">
+            <label for="role">Your role</label>
+            <input type="text" class="form-control" id="role" placeholder="Your Role">
+          </div>
+          <div class="form-group row">
+            <div class="col-2">
+              <label for="hours">Hours</label>
+              <input type="number" class="form-control form-inline" id="hours" value ="0">
+            </div>
+            <div class="col-2">
+              <label for="minutes">Minutes</label>
+              <input type="number" class="form-control form-inline" id="minutes" value="0">
+            </div>
+            <div class='col-3'>
+              <label for="date">Date</label>
+              <input class="form-control" type="date" value="" id="date">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" id='send'>Submit</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="./scripts/experience.js"></script>
+  </body>
+</html>

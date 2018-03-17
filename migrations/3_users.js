@@ -7,6 +7,7 @@ exports.up = function(knex, Promise) {
     table.string('email').notNullable().unique()
     table.specificType('password','char(60)').notNullable().unique()
     table.integer('goal').notNullable().defaultsTo(0)
+    table.integer('towardGoal').notNullable().defaultsTo(0)
     table.integer('group_id').notNullable().defaultsTo(1)
     table.foreign('group_id').references('id').inTable('groups')
     table.string('salt',30).notNullable()
