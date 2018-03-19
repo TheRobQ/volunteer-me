@@ -9,28 +9,39 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- Font awesome logos -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
     <!-- custom CSS -->
     <link rel='stylesheet' href='./styles/styles.css' />
   </head>
 
   <body>
     <div class='container'>
-      <div id="welcome">
+      <div id="welcome" class='row'>
       </div>
-      <div id="chart">
+      <div id="chart" class='row'>
       </div>
-      <div class=row>
-        <form id="setGoal">
-          <div class="form-group col-sm-10">
+      <div class="row">
+        <div class="form-group col-sm">
+            <form id="setGoal">
             <label for="addGoal">Set your goal</label>
             <input type="number" class="form-control" id="addGoal" placeholder="10" required>
             <button type="submit" class="btn btn-primary" id='sendGoal'>Submit</button>
           </div>
+          <div class="col-sm" id='passion'>
+          </div>
         </form>
       </div>
-      <div id='goal'>
+      <div id='goal' class='row'>
       </div>
-      <div id='main'>
+      <div id='groups' class='row'>
+      </div>
+      <div id='main' class='row'>
+      </div>
+      <div class='row'>
+        <div id="mainChart" class="col-sm-12">
+        </div>
       </div>
       <a href='/add.html'>Add an experience</a>
     </div>

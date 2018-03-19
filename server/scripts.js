@@ -23,7 +23,7 @@ const experience = (req, res, next) => {
 const goal = (req, res, next) => {
   return knex('users')
   .where({id: req.params.id})
-  .update({goal: req.body.goal})
+  .update({goal: req.body.goal, towardGoal: 0})
   .returning('goal')
   .then(data => {
     console.log(data);
