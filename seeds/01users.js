@@ -11,7 +11,7 @@ exports.seed = function(knex, Promise) {
         password: '$2a$04$NycHwgYTeRQCLAwSmbAp7ucaR8V.TANgGfAN6usEnxH434NFBqeym',
         goal: 900,
         towardGoal: 600,
-        towardGroup: 300,
+        towardGroup: 120,
         group_id: 3,
         salt: '$2a$04$NycHwgYTeRQCLAwSmbAp7u'},
         {
@@ -21,7 +21,7 @@ exports.seed = function(knex, Promise) {
           password: '$2a$04$8PMBDh7oqA.CdemjeaJ0pejMsBfnsRfurP29wI1PZ5AiK6Pqd55i6',
           goal: 2100,
           towardGoal: 900,
-          towardGroup: 1200,
+          towardGroup: 120,
           group_id: 4,
           salt: '$2a$04$8PMBDh7oqA.CdemjeaJ0pe'
         },

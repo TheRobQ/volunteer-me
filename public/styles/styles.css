@@ -10,6 +10,16 @@ strong{
   font-weight: 600;
 }
 
+/* Override Boostrap */
+.btn-primary{
+  background-color: CornflowerBlue  !important;
+  border-color: darkgray;
+}
+
+.btn-success {
+    background-color: MediumSeaGreen   !important;
+    color: black
+}
 /* NAVBAR */
 .navbar{
   height:75px;
@@ -111,6 +121,7 @@ strong{
 }
 #sendGoal{
   margin-top: 0px;
+  width: 130px;
 }
 
 #hours{
@@ -136,6 +147,11 @@ strong{
 
 #addExp{
   margin-top: 20px;
+}
+
+#groupInfo{
+  padding-top: 25px;
+  padding-left: 15px;
 }
 /* CHART */
 .org{

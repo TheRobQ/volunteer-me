@@ -75,6 +75,12 @@ $(document).ready(function() {
        if(getMode(orgs) === 'Advocacy'){
         return "fas fa-bullhorn"
       }
+      if(getMode(orgs) === 'Arts & Culture'){
+       return "fas fa-paint-brush"
+     }
+     if(getMode(orgs) === 'Arts & Culture'){
+      return "fas fa-paint-brush"
+    }
         return  "fas fa-thumbs-up"
   }
 
