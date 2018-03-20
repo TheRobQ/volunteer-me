@@ -62,7 +62,7 @@ strong{
 }
 
 .pieLabel{
-  margin-bottom: 15px;
+  margin-bottom: 45px;
   text-align: center;
 }
 
@@ -74,6 +74,16 @@ strong{
   height: 97px;
 }
 
+.rightSideMid{
+  padding-top: 30px;
+  height: 97px;
+  padding-right: 35px;
+  padding-left: 35px;
+}
+
+#midRow{
+  margin-top: -30px;
+}
 #passion{
   margin-top: 32px;
   margin-bottom: 32px;
@@ -96,7 +106,7 @@ strong{
   margin-top: 15px;
 }
 #addGoal{
-  margin-left: -55px;
+  margin-left: -62px;
   margin-right: 10px;
 }
 #sendGoal{
@@ -118,6 +128,14 @@ strong{
 }
 #topRow{
   margin-bottom: -10px
+}
+
+#groupsInfoRow{
+  margin-bottom: 30px;
+}
+
+#addExp{
+  margin-top: 20px;
 }
 /* CHART */
 .org{

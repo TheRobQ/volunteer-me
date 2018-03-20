@@ -123,7 +123,7 @@ $(document).ready(function() {
     $.when(setOrg(experiences, orgs)).then(getTIme(experiences, i = 0))
     $.when(getMode(orgs)).then(getCauseIcon(getMode))
     console.log(timeData)
-    console.log(groupData);
+    console.log(userData);
 
     //Add the greeting to the page
     $('#welcome').append(`<h1 class="col-sm-12 greeting">Hello, ${userData[0].firstName} <span class="badge"><i class="${getCauseIcon(orgs)}"></i></span><span id="hours"> You've volunteered a total of  ${myTotal}!</span></h1>`)
@@ -144,9 +144,9 @@ $(document).ready(function() {
       </div>`)
       $('#group').append(`<h3><strong>Your group: </strong> ${groupData.name}</h3>`)
 
-      $("#groupInfo").append(`<h3>${groupData.name} goal: ${groupData.goal_hours}</h3>
-        <h3> ${groupData.name} current hours: ${groupData.current_hours} </h3>
-        <3>$Your current contribution: ${userData.towardGroup}`)
+      $("#groupInfo").append(`<h4 class="sideBoard">${groupData.name} goal: ${groupData.goal_hours}</h4>
+        <h4 class="sideBoard"> ${groupData.name} current hours: ${groupData.current_hours} </h4>
+        <h4 class="sideBoard">Your current contribution: ${Math.max(userData[0].towardGroup / 60)} hours<h4>`)
 
        //Add you total Time to the page
        // $("#main").append(`<h2>You've put in ${myTotal}!</h2> `)
