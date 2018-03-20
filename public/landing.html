@@ -1,41 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Voulenteering</title>
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <!-- Font awesome logos -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
-    <!-- custom CSS -->
-    <link rel='stylesheet' href='./styles/styles.css' />
-  </head>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Voulenteer-Me</title>
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <!-- Font awesome logos -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
+  <!-- custom CSS -->
+  <link rel='stylesheet' href='./styles/styles.css' />
+</head>
 
-  <body>
-    <div class='container'>
-      <div id="welcome" class='row'>
+<body>
+  <nav class="navbar navbar-dark bg-dark">
+    <span class="navbar-brand mb-0 h1">VOLUNTEER-ME</span>
+  </nav>
+  <div class='container-fluid wholepage'>
+    <div class="row">
+      <div class="col-sm-2 left">
       </div>
-      <div id="chart" class='row'>
+      <div class="col-sm-8 contentArea">
+        <div id="welcome" class='row bottom-border'>
+        </div>
+
+      <!-- Top Row  -->
+      <div class='row' id="topRow">
+        <!-- Main doughtnut chart -->
+        <div class="col-sm-8 col-md-5" id="chart">
+        </div>
+        <!-- right content -->
+        <div class="col-sm-8 col-md-7" id="rightContent">
+          <div id="recent">
+          </div>
+            <div id="passion"> </div>
+            <div id="group">
+            </div>
+            <div class="row">
+                <div id='groupChart' class="col-sm-4">
+                </div>
+                <div id='groupInfo' class="col-sm-8">
+                </div>
+          </div>
+        </div>
       </div>
+      <!-- Goal Set row -->
       <div class="row">
-        <div class="form-group col-sm">
-            <form id="setGoal">
-            <label for="addGoal">Set your goal</label>
-            <input type="number" class="form-control" id="addGoal" placeholder="10" required>
-            <button type="submit" class="btn btn-primary" id='sendGoal'>Submit</button>
-          </div>
-          <div class="col-sm" id='passion'>
-          </div>
+        <div class="col-sm-10 col-md-5 leftSideMid">
+          <form class="form-inline" id="setGoal">
+              <div class="form-group">
+                  <input type="text" readonly class="form-control-plaintext" id="setGoal" value="Set A New Goal:" style="width: 270px">
+              </div>
+              <div class="form-group">
+                  <input type="number" class="form-control" id="addGoal" placeholder="10" style="width: 100px">
+              </div>
+              <button type="submit" class="btn btn-primary" id="sendGoal">Set goal</button>
         </form>
       </div>
-      <div id='goal' class='row'>
       </div>
-      <div id='groups' class='row'>
+
+      <div class="row">
+      </div>
+      <div id='goal' class='row'>
       </div>
       <div id='main' class='row'>
       </div>
@@ -44,16 +74,19 @@
         </div>
       </div>
       <a href='/add.html'>Add an experience</a>
-    </div>
+
+
+  </div>
+  </div>
 
 
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
-    <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
-    <script src="./scripts/main.js"></script>
-    <script src="./scripts/experience.js"></script>
-  </body>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+  <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script src="./scripts/main.js"></script>
+  <script src="./scripts/experience.js"></script>
+</body>
 
 </html>

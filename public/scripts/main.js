@@ -64,19 +64,18 @@ $(document).ready(function() {
     return mostFrequent
   };
 
-  const getCauseIcon = (orgs) => {
-    for(let i = 0; i < orgs.length; i++){
-      if(orgs[i].cause === 'Animals'){
+  const getCauseIcon = (fn) => {
+      if(getMode(orgs) === 'Animals'){
         return "fas fa-paw"
+        console.log(getMode(orgs));
       }
-       if(orgs[i].cause === 'Community Building'){
+       if(getMode(orgs) === 'Community Building'){
         return "fas fa-handshake"
       }
-       if(orgs[i].cause === 'Advocacy'){
+       if(getMode(orgs) === 'Advocacy'){
         return "fas fa-bullhorn"
       }
         return  "fas fa-thumbs-up"
-    }
   }
 
   //Align orgs to correct experience
@@ -106,52 +105,51 @@ $(document).ready(function() {
       return myTime
   }
 
-  const getTIme =(orgs, experiences, i) =>{
+  const getTIme =(experiences, i) =>{
     if(i === experiences.length){
       return
     }
-    var dataSet = []
-    dataSet.push(experiences[i])
-    dataSet.push(orgs[i].id)
-    dataSet.push(orgs[i].name)
-    timeData.push(dataSet)
+    timeData.push(experiences[i])
     i++
-    return getTIme(orgs, experiences, i)
+    return getTIme(experiences, i)
   }
 
 
 //after all reqs made AJAX COMPLETED
   $( document ).ajaxStop(function() {
-    console.log(experiences);
-    console.log(orgs);
-    setOrg(experiences, orgs)
     localStorage.setItem("group", groupData.id)
     var myTotal = getTotalHours(experiences)
-    getTIme(orgs, experiences, i = 0)
-    console.log(timeData);
-    getCauseIcon(orgs)
+    var passion = getMode(orgs)
+    $.when(setOrg(experiences, orgs)).then(getTIme(experiences, i = 0))
+    $.when(getMode(orgs)).then(getCauseIcon(getMode))
+    console.log(timeData)
+    console.log(groupData);
 
     //Add the greeting to the page
-    $('#welcome').append(`<h1 class="col-sm-12">Hello, ${userData[0].firstName} <span><i class="${getCauseIcon(orgs)}"></i></span></h1> <br />`)
-    $('#welcome').append(`<h3>Your current goal is ${userData[0].goal /60} hours</h3>`)
+    $('#welcome').append(`<h1 class="col-sm-12 greeting">Hello, ${userData[0].firstName} <span class="badge"><i class="${getCauseIcon(orgs)}"></i></span><span id="hours"> You've volunteered a total of  ${myTotal}!</span></h1>`)
 
+    //Chart Goal
+    $('#chart').append(`<h3 class="pieLabel">Your current goal is ${userData[0].goal /60} hours</h3>`)
+    //Current passion
+    $("#passion").append(`<h3><strong>Your current passion is: </strong>${passion}</h3>`)
     //Add experiences to the page
-    // for(let i = 0; i < experiences.length; i++){
-    //   $('#main').append(`<h3 class="exHeader">${experiences[i].title}</h3>
-    //           <p class="exBody"><strong>Description: </strong>${experiences[i].description} </p>
-    //           <p class="exOrg"><strong>Organization</strong> ${experiences[i].org_id}</p>
-    //           <p classs="exDate"><strong>Date: </strong> ${experiences[i].date}</p>`)
-    //     }
+      $('#recent').append(`
+        <h3 style="max-width: 38rem;">Your most recent volunteer experience</h3>
+        <div class="card border-dark mb-3" style="max-width: 38rem;">
+        <div class="card-header">On ${experiences[0].date}</div>
+        <div class="card-body text-dark">
+          <h5 class="card-title">${experiences[0].title} for ${experiences[0].org_id}</h5>
+          <p class="card-text">${experiences[0].description}</p>
+        </div>
+      </div>`)
+      $('#group').append(`<h3><strong>Your group: </strong> ${groupData.name}</h3>`)
 
-      //Add causes to your page
-      $("#passion").append(`<p><strong>Your current passion is: </strong>${  getMode(orgs)}</p>`)
-      for(key in modeObject){
-        $("#main").append(`<p><strong>${key}: </strong> ${modeObject[key]}</p>`)
-      }
-       $("#main").append(`<h1>group goal:${groupData.goal_hours},  group current hours: ${groupData.current_hours} </h1>`)
+      $("#groupInfo").append(`<h3>${groupData.name} goal: ${groupData.goal_hours}</h3>
+        <h3> ${groupData.name} current hours: ${groupData.current_hours} </h3>
+        <3>$Your current contribution: ${userData.towardGroup}`)
 
        //Add you total Time to the page
-       $("#main").append(`<h2>You've put in ${myTotal}!</h2> `)
+       // $("#main").append(`<h2>You've put in ${myTotal}!</h2> `)
 
 
       //D3 main circle
@@ -165,12 +163,12 @@ $(document).ready(function() {
 
       var pie = d3.layout.pie().value(function(d) {
         return d.hours
-      }).sort(null).padAngle(.02)
+      }).sort(null).padAngle(.03)
 
-      var w = 350
-      var h = 350
-      var outerRadius = w / 2.1
-      var innerRadius = 100
+      var w = 450
+      var h = 450
+      var outerRadius = w / 2.75
+      var innerRadius = 223
       // var color = d3.scale.category10()
       var color = d3.scale.ordinal().domain([0, 1]).range(['#B0C4DE', '#F4A460'])
       var arc = d3.svg.arc().outerRadius(outerRadius).innerRadius(innerRadius)
@@ -193,8 +191,9 @@ $(document).ready(function() {
           return color(i);
         }
       })
+      .style("stroke", "black")
 
-      path.transition().duration(2000).attrTween('d', function(d) {
+      path.transition().duration(1750).attrTween('d', function(d) {
         var interpolate = d3.interpolate({
           startAngle: 0,
           endAngle: 0
@@ -210,15 +209,15 @@ $(document).ready(function() {
       .attr('y', 30)
       .attr('class', 'id')
       .append('svg:tspan')
-      .attr('x', -53)
+      .attr('x', -70)
       .attr('dy', -15)
       .text(dataset[0].display)
-      .style({fill: 'black', 'font-size': '94px', 'font-family': 'helvetica', 'font-weight': 'bold'})
+      .style({fill: 'black', 'font-size': '114px', 'font-family': 'helvetica', 'font-weight': 'bold'})
       .append('text:tspan')
-      .attr('x', -49)
-      .attr('dy', 40)
+      .attr('x', -69)
+      .attr('dy', 60)
       .text('hours')
-      .style({fill: 'black', 'font-size': '40px', 'font-family': 'helvetica', 'font-weight': 200})
+      .style({fill: 'black', 'font-size': '60px', 'font-family': 'helvetica', 'font-weight': 200})
       }
 
       //PIE chart for group data
@@ -231,12 +230,12 @@ $(document).ready(function() {
         var r = 100
 
        var data = [ {label:"Group", value: current_hours},  {label: "Goal", value: remaining} ];
-       var color = d3.scale.ordinal().domain([0, 1, 2]).range(['#66CDAA', '#CD5C5C', '#FFB6C1', '#A52A2A'])
+       var color = d3.scale.ordinal().domain([0, 1]).range(['#66CDAA', '#CD5C5C', '#FFB6C1'])
 
        var pie = d3.layout.pie()
            .value(function(d) { return d.value; }).sort(null)
 
-       var holder = d3.select("#groups")
+       var holder = d3.select("#groupChart")
            .append("svg:svg")
            .data([data])
            .attr("width", w)
@@ -258,7 +257,7 @@ $(document).ready(function() {
             .attr("d", arc)
             .attr('stroke', '#fff')
             .attr('stroke-width', '3')
-            .transition().duration(1000).attrTween('d', function(d) {
+            .transition().duration(1600).attrTween('d', function(d) {
                  var interpolate = d3.interpolate({
                    startAngle: 0,
                    endAngle: 0
@@ -280,11 +279,19 @@ $(document).ready(function() {
 
 //Main chart of experiences
       const timeLine = () => {
-        var width = 1200
-        var height = 800
+      var responsiveW = d3.select("#mainChart").node().getBoundingClientRect()
+        //console.log(responsiveW.width);
+        var width = responsiveW.width
+        var height = () => {
+           if(timeData.length < 6){
+          return 575}
+          else{
+            return timeData.length *75
+          }
+          }
         var padding = 110;
-        var cValue = function(d) { return d[2]}
-        var color = d3.scale.ordinal().domain(timeData.map(function(d){return d[2]})).range(['#B0C4DE', '#F4A460', '#A52A2A', '#6495ED', '#8B0000'	])
+        var cValue = function(d) { return d.org_id}
+        var color = d3.scale.ordinal().domain(timeData.map(function(d){return d.org_id})).range(['#B0C4DE', '#F4A460', '#A52A2A', '#6495ED', '#8B0000'	])
 
         var tooltip = d3.select("#mainChart").append("div")
         .attr("class", "tooltip")
@@ -293,22 +300,22 @@ $(document).ready(function() {
     //created SVG container here
     var chart1 = d3.select('#mainChart')
       	.append('svg:svg')
-      	.attr('width', "100%")
-      	.attr('height', height)
+      	.attr('width', width)
+      	.attr('height', height())
       	.attr('class', 'chart1')
 
     var y = d3.scale.ordinal()
-        .domain(timeData.map(function(d){return d[0].date}))
-        .rangePoints([height-(padding+25), padding])
+        .domain(timeData.map(function(d){return d.date}))
+        .rangePoints([height()-(padding+25), padding])
 
     var x = d3.scale.ordinal()
-    	      .domain(timeData.map(function(d){return d[2]}))
+    	      .domain(timeData.map(function(d){return d.org_id}))
     	      .rangePoints([padding, width-(padding+200) ])
 
     var main = chart1.append('g')
   	.attr('transform', 'translate(' + 6 + ',' + 2 + ')')
   	.attr('width', width-padding)
-  	.attr('height', height-padding)
+  	.attr('height', height()-padding)
   	.attr('class', 'main')
 
     // draw the x axis
@@ -316,7 +323,7 @@ $(document).ready(function() {
       	.scale(x)
       	.orient('bottom')
     main.append('g')
-      	.attr('transform', 'translate(30,' + (height - padding +22) + ')')
+      	.attr('transform', 'translate(30,' + (height() - padding +22) + ')')
       	.attr('class', 'main axis org')
         .style('fill', 'red')
       	.call(customXAxis);
@@ -335,24 +342,36 @@ $(document).ready(function() {
     g.selectAll("scatter-dots")
       .data(timeData)
       .enter().append("svg:circle")
-          .attr("cx", function (d) { return x(d[2]) +33 } )
-          .attr("cy", function (d) { return y(d[0].date) -9 } )
-          .attr("r", 28)
+          .attr("cx", function (d) { return x(d.org_id) +33 } )
+          .attr("cy", function (d) { return y(d.date) -9 } )
+          .attr("r", 22)
           .style("fill", function(d) { return color(cValue(d));})
           .style("stroke", "black")
-          .on("mouseover", function(d) {
+          .on("mouseover", function(d){
+            d3.select(this).transition()
+                 .duration(500).attr("r", 34)
+          })
+          .on("click", function(d) {
               tooltip.transition()
                    .duration(400)
                    .style("opacity", .9);
-              tooltip.html(`<h1> ${d[0].title}</h1>
-                <p>${d[0].description}</p>`)
+              tooltip.html(`<div class="card">
+  <div class="card-body">
+    <h5 class="card-title chart-title">${d.title}</h5>
+    <h6 class="card-subtitle mb-2 text-muted"><strong>Role: </strong>${d.role}</h6>
+    <p class="card-text"><strong>What I did: </strong>${d.description}</p>
+    <h6 class="card-subtitle mb-2 text-muted">${d.hours} hours and ${d.minutes} minutes</h6>
+  </div>
+</div>`)
 				            .style("left", d3.select(this).attr("cx") + "px")
 				             .style("top", d3.select(this).attr("cy") + "px")
       })
       .on("mouseout", function(d) {
           tooltip.transition()
                .duration(400)
-               .style("opacity", 0);
+               .style("opacity", 0)
+               d3.select(this).transition()
+                    .duration(500).attr("r", 22)
       });
 
       function customYAxis(g) {
@@ -375,13 +394,14 @@ $(document).ready(function() {
           .data(color.domain())
           .enter().append("g")
           .attr("class", "legend")
-          .attr("transform", function(d, i) { return "translate(-89," + (i +2) * 30 + ")"; });
+          .attr("transform", function(d, i) { return "translate(-89," + (i +1) * 33 + ")"; });
 
           legend.append("rect")
             .attr("x", width - 20)
             .attr("width", 21)
             .attr("height", 21)
-            .style("fill", color);
+            .style("fill", color)
+            .style("stroke", "black")
 
   // draw legend text
         legend.append("text")

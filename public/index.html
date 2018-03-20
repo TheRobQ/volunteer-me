@@ -11,34 +11,40 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   <!-- custom CSS -->
-  <link rel='stylesheet' href='./styles/styles.css' />
+  <link rel='stylesheet' href='./styles/index.css' />
 </head>
 
 <body>
-  <div class='container' id='signin'>
-    <form>
-      <div class="form-group row col-sm-10">
-        <label for="user">Email address</label>
-        <input type="email" class="form-control" id="user" aria-describedby="emailHelp" placeholder="Enter email">
+  <div class='container-fluid' id='signin'>
+    <div class="row justify-content-center main">
+      <div "col start">
       </div>
-      <div class="form-group row col-sm-10">
-        <label for="pass">Password</label>
-        <input type="password" class="form-control" id="pass" placeholder="Password">
-      </div>
-      <button type="submit" class="btn btn-primary" id='login'>Let's do some good</button>
-    </form>
-    <a href="signup.html">Don't have an account? Sign up! </a>
-    <div class="alert alert-warning alert-dismissible fade show hidden" role="alert" id="toast">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <div class="col-sm-4 align-self-center formContainer">
+        <form>
+          <div class="form-group">
+            <label for="user">Email address</label>
+            <input type="email" class="form-control" id="user" aria-describedby="emailHelp" placeholder="Enter email">
+          </div>
+          <div class="form-group">
+            <label for="pass">Password</label>
+            <input type="password" class="form-control" id="pass" placeholder="Password">
+          </div>
+          <button type="submit" class="btn btn-primary" id='login'>Let's do some good</button>
+        </form>
+        <a href="signup.html">Don't have an account? Sign up! </a>
+        <div class="alert alert-warning alert-dismissible fade show hidden" role="alert" id="toast">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
-      <strong>We don't see you in our Database</strong> Please sign up!
-    </div>
-    <div class="alert alert-danger alert-dismissible fade show hidden" role="alert" id="toast1">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <strong>We don't see you in our Database</strong> Please sign up!
+        </div>
+        <div class="alert alert-danger alert-dismissible fade show hidden" role="alert" id="toast1">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
-      <strong>Username and pass word don't match</strong> Please try again
+          <strong>Username and pass word don't match</strong> Please try again
+        </div>
+      </div>
     </div>
   </div>
 

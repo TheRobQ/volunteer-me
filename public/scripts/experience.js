@@ -12,9 +12,8 @@ $(document).ready(function() {
     const user_id = localStorage.getItem("user");
     const group_id = localStorage.getItem("group");
     const towardGoal = (hours, minutes) =>{
-      return (parseInt(hours) * 60) + parseInt(minutes)
+    return (parseInt(hours) * 60) + parseInt(minutes)
     }
-
 
     $.post("/experiences/", {
         title: title,

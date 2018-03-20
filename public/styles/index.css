@@ -1,0 +1,30 @@
+#signin{
+  background-image: url("../img/path.jpg");
+  background-repeat: no-repeat;
+   background-size: cover;
+  width: auto;
+  height: 100vh;
+}
+
+.hidden{
+  display: none;
+  height: 100%;
+}
+
+.formContainer{
+  background-color: white;
+  padding: 25px;
+  border-radius: 25px;
+  margin-top: 20px;
+  border-style: solid;
+  border-color: lightgray;
+  border-width: 3px;
+}
+
+.main{
+  height: 100vh;
+}
+
+.start{
+  display: block;
+}

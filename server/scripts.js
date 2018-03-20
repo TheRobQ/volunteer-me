@@ -10,7 +10,7 @@ const userInfo = (req, res, next) => {
   })
 }
 const experiences = (req, res, next) => {
-  knex('experiences').select('*').where({user_id: req.params.id}).then(
+  knex('experiences').select('*').where({user_id: req.params.id}).orderBy('date', 'desc').then(
     data =>{
       res.status(200).send(data)
     })
@@ -26,7 +26,6 @@ const goal = (req, res, next) => {
   .update({goal: req.body.goal, towardGoal: 0})
   .returning('goal')
   .then(data => {
-    console.log(data);
     res.sendStatus(200)
   })
 }
@@ -36,12 +35,12 @@ const upDateGroupGoal = (req, res, next) =>{
   .where({id: req.params.id})
   .increment('current_hours', req.body.towardGoal)
   .then(data =>{
-    console.log(data);
     res.sendStatus(200)
   })
 }
 
 const newExperience = (req, res, next) => {
+    console.log(req.body);
     return knex('orgs')
     .where({name: req.body.org})
     .returning('id')
@@ -55,15 +54,17 @@ const newExperience = (req, res, next) => {
       hours: parseInt(req.body.hours),
       minutes: parseInt(req.body.minutes),
       date: req.body.date})
-      .returning(['title', 'description', 'org_id', 'role', 'date',])
+      .returning(['title', 'description', 'org_id', 'role', 'date'])
       .then(data =>{
           res.status(200).send(data)
+          console.log(data);
         })
     })
     .then(data => {
       return knex('users')
       .where({id: req.body.user_id})
       .increment('towardGoal', parseInt(req.body.towardGoal))
+      .increment('towardGroup', parseInt(req.body.towardGoal))
       .then((data) => {
           console.log(data)
       })
@@ -75,7 +76,6 @@ const editExperience = (req, res, next) => {
 }
 
 const groupInfo =(req, res, next) => {
-  console.log(req.params);
   knex('groups').where({id: req.params.id}).select("*")
   .then(data => res.status(200).send(data))
 }
