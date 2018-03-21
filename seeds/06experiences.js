@@ -28,6 +28,7 @@ exports.seed = function(knex, Promise) {
         {title: 'Food donations', user_id: 1, org_id: 5, description: "Worked on a farm operated by community food share harvesting vegetables for their donation program. Easy sign up, initiation and friendly leaders.", role: 'general ', hours: 4, minutes:0, date:'2017-02-19'},
         {title: 'Daily Soup Kitchen', user_id: 1, org_id: 5, description: "Set up kitchen, handed out food and washed dishes for daily soup kitchen", role: 'general ', hours: 4, minutes:0, date:'2017-08-19'},
         {title: 'Dog Walking', user_id: 1, org_id: 1, description: 'I walked two dogs for the Humane Society of Boulder valley. Went by the prairie dog town. Was also asked to clean kennels', role: 'dog walker', hours: 3, minutes:15, date:'2017-05-25'},
+        {title: 'Shelter Intake', user_id: 1, org_id: 1, description: 'I helped with taking in dogs transferred from high-kill rurla shelters.  Bathed and fed dogs and entered them into the system.', role: 'Intake', hours: 4, minutes:30, date:'2018-03-20'},
       ]);
     });
 };

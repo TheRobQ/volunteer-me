@@ -12,6 +12,17 @@ input {
   height: 55px;
 }
 
+/* NAVBAR */
+.navbar{
+  height:75px;
+}
+
+.navbar-brand{
+  font-size: 35px;
+  margin-left: 38px;
+}
+
+/* Main */
 .form-control{
   font-size: 1.6 rem !important;
 }

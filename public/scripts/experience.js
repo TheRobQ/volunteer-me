@@ -6,7 +6,7 @@ $(document).ready(function() {
     const description = $("#description").val();
     const org = $("input#org").val();
     const role = $("input#role").val();
-    const hours = $("input#hours").val();
+    const hours = $("input#setHours").val();
     const minutes = $("input#minutes").val();
     const date = $("input#date").val();
     const user_id = localStorage.getItem("user");
