@@ -155,7 +155,7 @@ $(document).ready(function() {
 
       $("#groupInfo").append(`<h4 class="sideBoard">${groupData.name} goal: <span class="red"><strong>${groupData.goal_hours}</strong></span></h4>
         <h4 class="sideBoard"> ${groupData.name} current hours: <span class="red"><strong>${groupData.current_hours}</strong> </span></h4>
-        <h4 class="sideBoard">Your current contribution: <span class="red"><strong>${Math.max(userData[0].towardGroup / 60)} hours</span></strong><h4>`)
+        <h4 class="sideBoard">Your current contribution: <span class="red"><strong>${Math.floor(userData[0].towardGroup / 60)} hours</span></strong><h4>`)
 
        //Add you total Time to the page
        // $("#main").append(`<h2>You've put in ${myTotal}!</h2> `)
