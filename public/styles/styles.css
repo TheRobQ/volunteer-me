@@ -258,10 +258,12 @@ div.tooltip {
 .chart-text{
   font-size: 18px;
 }
-.tick: first-of-type{
-  display: none
-}
 
+.tick text{
+  font-family: "helvetica", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+}
 .legend{
   margin-bottom: 5px;
 }

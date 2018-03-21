@@ -5,24 +5,27 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Voulenteering</title>
+  <title>Volunteer-Me</title>
 
   <!-- Bootstrap -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <!-- gogle font -->
+  <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
   <!-- custom CSS -->
-  <link rel='stylesheet' href='./styles/index.css' />
+  <link rel='stylesheet' href='./styles/login.css' />
 </head>
 
 <body>
-  <nav class="navbar navbar-dark bg-dark">
+  <!-- <nav class="navbar navbar-dark bg-dark">
     <span class="navbar-brand mb-0 h1">VOLUNTEER-ME</span>
-  </nav>
+  </nav> -->
   <div class='container-fluid' id='signin'>
     <div class="row justify-content-center main">
       <div "col start">
       </div>
       <div class="col-sm-6 align-self-center formContainer">
+        <h1 id="logo">Volunteer-Me</h1>
         <form>
           <div class="form-group">
             <label for="user">Email address</label>
@@ -33,8 +36,9 @@
             <input type="password" class="form-control" id="pass" placeholder="Password">
           </div>
           <button type="submit" class="btn btn-primary" id='login'>Let's do some good</button>
+            <a href="signup.html" id="noAccount">Don't have an account? Sign up! </a>
         </form>
-        <a href="signup.html">Don't have an account? Sign up! </a>
+
         <div class="alert alert-warning alert-dismissible fade show hidden" role="alert" id="toast">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>

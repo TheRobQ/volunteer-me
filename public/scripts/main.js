@@ -298,7 +298,7 @@ $(document).ready(function() {
             return 630
           }
           else{
-            return timeData.length * 80
+            return timeData.length * 90
           }
           }
         var padding = 110;
@@ -358,7 +358,7 @@ $(document).ready(function() {
 	       .scale(y)
 	       .orient('left');
     main.append('g')
-      	.attr('transform', 'translate('+padding+',0)')
+      	.attr('transform', 'translate('+(padding+7)+',0)')
       	.attr('class', 'main axis date')
       	.call(customYAxis);
 
@@ -367,8 +367,8 @@ $(document).ready(function() {
     g.selectAll("scatter-dots")
       .data(timeData)
       .enter().append("svg:circle")
-          .attr("cx", function (d) { return x(d.org_id) +33 } )
-          .attr("cy", function (d) { return y(d.date) -9 } )
+          .attr("cx", function (d) { return x(d.org_id) +42 } )
+          .attr("cy", function (d) { return y(d.date) -8 } )
           .attr("r", function(d) {return getRadius(d)})
           .style("fill", function(d) { return color(cValue(d));})
           .style("fill-opacity", .75)
@@ -413,7 +413,7 @@ $(document).ready(function() {
         g.selectAll(".tick text").attr("x", 9).attr("y", 27)
         .attr('fill', 'black')
         .attr('font-family', 'helvetica')
-        .attr('font-size', '15px')
+        .style('font-size', '19px')
         // g.select(".domain").remove()
         }
       var legend = main.selectAll(".legend")
