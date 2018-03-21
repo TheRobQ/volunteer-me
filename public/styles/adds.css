@@ -1,3 +1,61 @@
-.addEx{
+body {
+  font-family: 'helvetica', sans-serif;
+  background-color: #E6D8C1;
+}
+
+label {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+input {
+  height: 55px;
+}
+
+.form-control{
+  font-size: 1.6 rem !important;
+}
+
+textarea{
+  font-size: 1.6 rem !important
+}
+
+.addEx {
   padding-top: 45px;
+  background-color: white;
+  height: 100vh;
+  border-left: solid;
+  border-left-width: 1px;
+  border-left-color: darkgray;
+  border-right: solid;
+  border-right-width: 1px;
+  border-right-color: darkgray
+}
+
+#signUp {
+  padding-top: 45px;
+  background-color: white;
+  height: 100vh;
+  border-left: solid;
+  border-left-width: 1px;
+  border-left-color: darkgray;
+  border-right: solid;
+  border-right-width: 1px;
+  border-right-color: darkgray
+}
+
+.buttons{
+  padding-top: 41px;
+  font-size: 29px;
+}
+
+.btn{
+  height: 55px;
+}
+
+#cancelMe{
+  padding-top: 13px
+}
+.hidden{
+  display: none;
 }

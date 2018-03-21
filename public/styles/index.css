@@ -1,3 +1,23 @@
+body {
+  font-family: 'helvetica', sans-serif;
+}
+
+label {
+  font-weight: bold;
+  font-size: 19px;
+}
+
+/* NAVBAR */
+.navbar{
+  height:75px;
+}
+
+.navbar-brand{
+  font-size: 35px;
+  margin-left: 38px;
+}
+
+ /* Main sign in */
 #signin{
   background-image: url("../img/path.jpg");
   background-repeat: no-repeat;

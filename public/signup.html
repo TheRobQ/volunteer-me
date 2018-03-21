@@ -11,44 +11,51 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   <!-- custom CSS -->
-  <link rel='stylesheet' href='./styles/styles.css' />
+  <link rel='stylesheet' href='./styles/adds.css' />
 </head>
 
 <body>
+  <nav class="navbar navbar-dark bg-dark">
+    <span class="navbar-brand mb-0 h1">VOLUNTEER-ME</span>
+  </nav>
   <div class='container' id='signUp'>
-    <form>
-      <div class="form-group row col-sm-10">
-        <label for="first">First Name</label>
-        <input type="text" class="form-control" id="first" placeholder="First Name" required>
-      </div>
-      <div class="form-group row col-sm-10">
-        <label for="last">Last Name</label>
-        <input type="text" class="form-control" id="last" placeholder="Last Name" required>
-      </div>
-      <div class="form-group row col-sm-10">
-        <label for="user">Email address</label>
-        <input type="email" class="form-control" id="user" aria-describedby="emailHelp" placeholder="Enter email" required>
-      </div>
-      <div class="form-group row col-sm-10">
-        <label for="pass">Password</label>
-        <input type="password" class="form-control" id="pass" placeholder="Password">
-      </div>
-      <div class="form-group row col-sm-10">
-        <label for="passConfirm">Confirm Password</label>
-        <input type="password" class="form-control" id="passConfirm" placeholder="Password">
-      </div>
-      <div class="form-group row col-sm-10">
-        <label for="text">Group</label>
-        <input type="text" class="form-control" id="group" value="None">
-      </div>
-      <button type="submit" class="btn btn-primary" id='login'>Sign In</button>
-        <small id="emailHelp" class="form-text text-muted">We'll never share your information with anyone else.</small>
-    </form>
-    <div class="alert alert-danger alert-dismissible fade show hidden" role="alert" id="toast">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <div class="row">
+      <div class="col-sm-12">
+        <form>
+          <div class="form-group row col-sm-10">
+            <label for="first">First Name</label>
+            <input type="text" class="form-control" id="first" placeholder="First Name" required>
+          </div>
+          <div class="form-group row col-sm-10">
+            <label for="last">Last Name</label>
+            <input type="text" class="form-control" id="last" placeholder="Last Name" required>
+          </div>
+          <div class="form-group row col-sm-10">
+            <label for="user">Email address</label>
+            <input type="email" class="form-control" id="user" aria-describedby="emailHelp" placeholder="Enter email" required>
+          </div>
+          <div class="form-group row col-sm-10">
+            <label for="pass">Password</label>
+            <input type="password" class="form-control" id="pass" placeholder="Password">
+          </div>
+          <div class="form-group row col-sm-10">
+            <label for="passConfirm">Confirm Password</label>
+            <input type="password" class="form-control" id="passConfirm" placeholder="Password">
+          </div>
+          <div class="form-group row col-sm-10">
+            <label for="text">Group</label>
+            <input type="text" class="form-control" id="group" value="None">
+          </div>
+          <button type="submit" class="btn btn-primary" id='login'>Sign In</button>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your information with anyone else.</small>
+        </form>
+        <div class="alert alert-danger alert-dismissible fade show hidden" role="alert" id="toast">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
-      <strong>Passwords don't match!</strong> Change a few things up and try submitting again.
+          <strong>Passwords don't match!</strong> Change a few things up and try submitting again.
+        </div>
+      </div>
     </div>
   </div>
 

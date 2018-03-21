@@ -23,6 +23,10 @@ exports.seed = function(knex, Promise) {
         {title: 'Nonprofit development', user_id: 2, org_id: 10, description: "Attended Posture in the Workplace lunch workshow run by Lyons Pilates with Madeline. Learned different stances and rolling shoulder exercises to realign your core. #professionaldevelopment", role: 'general ', hours: 1, minutes:0, date:'2018-02-19'},
         {title: 'Artist hospitality', user_id: 3, org_id: 3, description: "Greeted artists as they arrived at venue.  Met some great bands!!", role: 'general', hours: 2, minutes:0, date:'2017-09-07'},
         {title: 'Artist hospitality', user_id: 3, org_id: 3, description: "Ran water to the stage. Kept snacks stocked.", role: 'general ', hours: 2, minutes:0, date:'2017-09-08'},
+        {title: 'Homeless Outreach', user_id: 1, org_id: 5, description: "Prepped place settings and cleaned up the kitchen after serving food to ~70 people experiencing homelessness a hot dinner", role: 'general ', hours: 3, minutes:0, date:'2018-03-03'},
+        {title: 'Food donations', user_id: 1, org_id: 5, description: "Worked on a farm operated by community food share harvesting vegetables for their donation program. Easy sign up, initiation and friendly leaders.", role: 'general ', hours: 4, minutes:0, date:'2017-08-19'},
+        {title: 'Food donations', user_id: 1, org_id: 5, description: "Worked on a farm operated by community food share harvesting vegetables for their donation program. Easy sign up, initiation and friendly leaders.", role: 'general ', hours: 4, minutes:0, date:'2017-08-19'},
+        {title: 'Daily Soup Kitchen', user_id: 1, org_id: 5, description: "Set up kitchen, handed out food and washed dishes for daily soup kitchen", role: 'general ', hours: 4, minutes:0, date:'2017-08-19'},
       ]);
     });
 };

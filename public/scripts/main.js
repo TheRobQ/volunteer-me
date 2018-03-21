@@ -143,19 +143,19 @@ $(document).ready(function() {
     $("#passion").append(`<h3><strong>Your current passion is: </strong>${passion}</h3>`)
     //Add experiences to the page
       $('#recent').append(`
-        <h3 style="max-width: 38rem;">Your most recent volunteer experience</h3>
+        <h3 style="max-width: 38rem, font-weight: bold">Your most recent volunteer experience</h3>
         <div class="card border-dark mb-3" style="max-width: 38rem;">
         <div class="card-header text-white bg-secondary">On ${experiences[0].date}</div>
         <div class="card-body text-dark">
-          <h5 class="card-title">${experiences[0].title} for ${experiences[0].org_id}</h5>
+          <h5 class="card-title" id="extitle">${experiences[0].title} for ${experiences[0].org_id}</h5>
           <p class="card-text">${experiences[0].description}</p>
         </div>
       </div>`)
-      $('#group').append(`<h3><strong>Your group: </strong> ${groupData.name}</h3>`)
+      $('#group').append(`<h3 class="groupsHeader"><strong>Your group: <span class="red">${groupData.name}</strong></span></h3>`)
 
-      $("#groupInfo").append(`<h4 class="sideBoard">${groupData.name} goal: ${groupData.goal_hours}</h4>
-        <h4 class="sideBoard"> ${groupData.name} current hours: ${groupData.current_hours} </h4>
-        <h4 class="sideBoard">Your current contribution: ${Math.max(userData[0].towardGroup / 60)} hours<h4>`)
+      $("#groupInfo").append(`<h4 class="sideBoard">${groupData.name} goal: <span class="red"><strong>${groupData.goal_hours}</strong></span></h4>
+        <h4 class="sideBoard"> ${groupData.name} current hours: <span class="red"><strong>${groupData.current_hours}</strong> </span></h4>
+        <h4 class="sideBoard">Your current contribution: <span class="red"><strong>${Math.max(userData[0].towardGroup / 60)} hours</span></strong><h4>`)
 
        //Add you total Time to the page
        // $("#main").append(`<h2>You've put in ${myTotal}!</h2> `)
@@ -179,12 +179,12 @@ $(document).ready(function() {
       var outerRadius = w / 2.95
       var innerRadius = 223
       // var color = d3.scale.category10()
-      var color = d3.scale.ordinal().domain([0, 1]).range(['#B0C4DE', '#4682B4'])
+      var color = d3.scale.ordinal().domain([0, 1]).range(['#B0C4DE', '#CD5C5C'])
       var arc = d3.svg.arc().outerRadius(outerRadius).innerRadius(innerRadius)
 
       var svg = d3.select("#chart")
       .append("svg")
-      .attr({width: w, height: h, class: 'shadow'})
+      .attr({width: w, height: h, class: 'mainCircle'})
       .append('g')
       .attr({
         transform: 'translate(' + w / 2 + ',' + h / 2 + ')'
@@ -218,15 +218,15 @@ $(document).ready(function() {
       .attr('y', 30)
       .attr('class', 'id')
       .append('svg:tspan')
-      .attr('x', -70)
+      .attr('x', -50)
       .attr('dy', -15)
       .text(dataset[0].display)
-      .style({fill: 'black', 'font-size': '114px', 'font-family': 'helvetica', 'font-weight': 'bold'})
+      .style({fill: 'black', 'font-size': '134px', 'font-family': 'Lobster, cursive', 'font-weight': '300'})
       .append('text:tspan')
       .attr('x', -69)
       .attr('dy', 60)
       .text('hours')
-      .style({fill: 'black', 'font-size': '60px', 'font-family': 'helvetica', 'font-weight': 200})
+      .style({fill: 'black', 'font-size': '60px', 'font-family': 'helvetica', 'font-weight': 400})
       }
 
       //PIE chart for group data
@@ -239,7 +239,7 @@ $(document).ready(function() {
         var r = 100
 
        var data = [ {label:"Complete", value: current_hours},  {label: "Remaining", value: remaining} ];
-       var color = d3.scale.ordinal().domain([0, 1]).range(['	#D2B48C', '#ADD8E6', '#ADD8E6'])
+       var color = d3.scale.ordinal().domain([0, 1]).range(['#B0C4DE', '#D2B48C',  '#ADD8E6'])
 
        var pie = d3.layout.pie()
            .value(function(d) { return d.value; }).sort(null)
@@ -292,10 +292,13 @@ $(document).ready(function() {
         //console.log(responsiveW.width);
         var width = responsiveW.width
         var height = () => {
-           if(timeData.length < 7){
+           if(timeData.length < 6){
           return 600}
+          if(timeData.length === 7){
+            return 630
+          }
           else{
-            return timeData.length * 75
+            return timeData.length * 80
           }
           }
         var padding = 110;
@@ -368,7 +371,7 @@ $(document).ready(function() {
           .attr("cy", function (d) { return y(d.date) -9 } )
           .attr("r", function(d) {return getRadius(d)})
           .style("fill", function(d) { return color(cValue(d));})
-          .style("fill-opacity", .85)
+          .style("fill-opacity", .75)
           .style("stroke", "black")
           .on("mouseover", function(d){
             d3.select(this).transition()
@@ -378,12 +381,12 @@ $(document).ready(function() {
               tooltip.transition()
                    .duration(400)
                    .style("opacity", .9);
-              tooltip.html(`<div class="card shadow">
+              tooltip.html(`<div class="card border-dark shadow">
   <div class="card-body">
-    <h5 class="card-title chart-title">${d.title}</h5>
+    <h5 class="card-title chart-title text-white">${d.title}</h5>
     <h6 class="card-subtitle mb-2 text-muted"><strong>Role: </strong>${d.role}</h6>
-    <p class="card-text"><strong>What I did: </strong>${d.description}</p>
-    <h6 class="card-subtitle mb-2 text-muted">${d.hours} hours and ${d.minutes} minutes</h6>
+    <p class="card-text chart-text"><strong>What I did: </strong>${d.description}</p>
+    <h6 class="card-subtitle mb-2 text-muted">Time: ${d.hours} hours and ${d.minutes} minutes</h6>
   </div>
 </div>`)
 				            .style("left", d3.select(this).attr("cx") + "px")
@@ -461,8 +464,3 @@ $(document).ready(function() {
       })
   })
 })
-
-// if (currentMinutes > 60) {
-//   currentHours += Math.floor(currentMinutes / 60)
-//   currentMinutes = currentMinutes % 60
-// }

@@ -3,13 +3,16 @@ body{
 }
 
 h3{
-  font-size: 26px;
+  font-size: 22px;
 }
 
 strong{
   font-weight: 600;
 }
 
+.red{
+  color: #CD5C5C
+}
 /* Override Boostrap */
 .btn-primary{
   background-color: CornflowerBlue  !important;
@@ -25,6 +28,14 @@ strong{
   font-weight: 500;
   font-size: 21px;
 }
+
+.card-title{
+  font-weight: bold;
+}
+
+.shadow{
+  box-shadow: 6px 6px 10px 2px grey;
+}
 /* NAVBAR */
 .navbar{
   height:75px;
@@ -32,10 +43,14 @@ strong{
 
 .navbar-brand{
   font-size: 35px;
-  margin-left:8px;
+  margin-left: 38px;
 }
 
 /* Main Page CSS */
+.groupsHeader{
+font-size: 24px
+}
+
 .wholepage{
   padding: 0px;
   background-color: #E6D8C1;
@@ -62,8 +77,9 @@ strong{
 }
 
 .greeting{
-  font-size: 58px;
+  font-size: 88px;
   font-weight: bold;
+  font-family: 'Lobster', cursive;
 }
 
 .badge{
@@ -78,7 +94,7 @@ strong{
 }
 
 .pieLabel{
-  margin-bottom: 45px;
+  margin-bottom: 12%;
   text-align: center;
 }
 
@@ -98,15 +114,20 @@ strong{
 }
 
 .sideBoard{
-  margin-bottom: 22px;
+  margin-bottom: 10%;
+  font-size: 20px
 }
 
+#extitle{
+  margin-bottom: 3px;
+}
 #midRow{
   margin-top: -30px;
 }
 #passion{
   margin-top: 32px;
   margin-bottom: 32px;
+  font-size: 29px
 }
 #welcome{
   text-align: left;
@@ -136,13 +157,14 @@ strong{
 
 #hours{
   font-weight: normal;
-  font-size: 23px;
+  font-size: 26px;
+  font-family: 'helvetica', sans-serif;
 }
 #chart{
   border-right: solid;
   border-left-color: lightgray;
   border-width: 1px;
-  margin-bottom: -10px
+  margin-bottom: -10px;
 }
 #groupChart{
   margin-top: 20px;
@@ -165,7 +187,10 @@ strong{
 }
 
 #timeHeader{
-  margin-top: 25px
+  margin-top: 25px;
+  margin-bottom: 25px;
+  font-family: 'Lobster', cursive;
+  font-size: 50px
 }
 
 #beforeChart{
@@ -173,9 +198,18 @@ strong{
   border-top: solid;
   border-color: lightgray;
   border-width: 2px;
-
+  margin-left: -26px;
+  margin-right: -26px
 }
 /* CHART */
+#mainChart{
+  /* box-shadow: 1px 8px 18px 0px grey; */
+  margin-bottom: 50px;
+  border: solid;
+  border-color: lightgray;
+  border-width: .5px
+}
+
 .org{
   fill: lightgray;
 }
@@ -197,8 +231,8 @@ strong{
 div.tooltip {
   position: absolute;
   text-align: center;
-  width: 360px;
-  height: 228px;
+  width: 410px;
+  height: 248px;
   padding: 2px;
   font: 12px sans-serif;
   border: 0px;
@@ -208,9 +242,22 @@ div.tooltip {
 .chart-title{
   font-family: 'helvetica', sans-serif;
   font-weight: bold;
-  font-size: 25px;
+  font-size: 30px;
+  background-color: black;
+  margin-left: -20px;
+  margin-right: -20px;
+  margin-top: -20px;
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
+.card-subtitle{
+  font-size: 21px;
+}
+
+.chart-text{
+  font-size: 18px;
+}
 .tick: first-of-type{
   display: none
 }
