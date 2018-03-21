@@ -57,18 +57,24 @@ const newExperience = (req, res, next) => {
       .returning(['title', 'description', 'org_id', 'role', 'date'])
       .then(data =>{
           res.status(200).send(data)
-          console.log(data);
         })
     })
     .then(data => {
       return knex('users')
       .where({id: req.body.user_id})
       .increment('towardGoal', parseInt(req.body.towardGoal))
-      .increment('towardGroup', parseInt(req.body.towardGoal))
       .then((data) => {
           console.log(data)
       })
     })
+    .then(data => {
+          return knex('users')
+          .where({id: req.body.user_id})
+          .increment('towardGroup', parseInt(req.body.towardGoal))
+          .then((data) => {
+              console.log(data)
+          })
+        })
 }
 
 const editExperience = (req, res, next) => {

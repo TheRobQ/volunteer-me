@@ -17,8 +17,13 @@ strong{
 }
 
 .btn-success {
-    background-color: MediumSeaGreen   !important;
+    background-color: #D2B48C   !important;
     color: black
+}
+
+.card-header{
+  font-weight: 500;
+  font-size: 21px;
 }
 /* NAVBAR */
 .navbar{
@@ -69,6 +74,7 @@ strong{
 .bottom-border{
   border-bottom: solid;
   border-color: lightgray;
+  margin-bottom: 38px;
 }
 
 .pieLabel{
@@ -89,6 +95,10 @@ strong{
   height: 97px;
   padding-right: 35px;
   padding-left: 35px;
+}
+
+.sideBoard{
+  margin-bottom: 22px;
 }
 
 #midRow{
@@ -152,6 +162,18 @@ strong{
 #groupInfo{
   padding-top: 25px;
   padding-left: 15px;
+}
+
+#timeHeader{
+  margin-top: 25px
+}
+
+#beforeChart{
+  margin-top: 30px;
+  border-top: solid;
+  border-color: lightgray;
+  border-width: 2px;
+
 }
 /* CHART */
 .org{

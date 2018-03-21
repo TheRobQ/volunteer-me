@@ -78,9 +78,12 @@ $(document).ready(function() {
       if(getMode(orgs) === 'Arts & Culture'){
        return "fas fa-paint-brush"
      }
-     if(getMode(orgs) === 'Arts & Culture'){
-      return "fas fa-paint-brush"
+     if(getMode(orgs) === 'Homeless & Housing'){
+      return "fas fa-home"
     }
+    if(getMode(orgs) === 'Health & Medicine'){
+     return "fas fa-heartbeat"
+   }
         return  "fas fa-thumbs-up"
   }
 
@@ -142,7 +145,7 @@ $(document).ready(function() {
       $('#recent').append(`
         <h3 style="max-width: 38rem;">Your most recent volunteer experience</h3>
         <div class="card border-dark mb-3" style="max-width: 38rem;">
-        <div class="card-header">On ${experiences[0].date}</div>
+        <div class="card-header text-white bg-secondary">On ${experiences[0].date}</div>
         <div class="card-body text-dark">
           <h5 class="card-title">${experiences[0].title} for ${experiences[0].org_id}</h5>
           <p class="card-text">${experiences[0].description}</p>
@@ -173,10 +176,10 @@ $(document).ready(function() {
 
       var w = 450
       var h = 450
-      var outerRadius = w / 2.75
+      var outerRadius = w / 2.95
       var innerRadius = 223
       // var color = d3.scale.category10()
-      var color = d3.scale.ordinal().domain([0, 1]).range(['#B0C4DE', '#F4A460'])
+      var color = d3.scale.ordinal().domain([0, 1]).range(['#B0C4DE', '#4682B4'])
       var arc = d3.svg.arc().outerRadius(outerRadius).innerRadius(innerRadius)
 
       var svg = d3.select("#chart")
@@ -235,8 +238,8 @@ $(document).ready(function() {
         var h = 200
         var r = 100
 
-       var data = [ {label:"Group", value: current_hours},  {label: "Goal", value: remaining} ];
-       var color = d3.scale.ordinal().domain([0, 1]).range(['#66CDAA', '#CD5C5C', '#FFB6C1'])
+       var data = [ {label:"Complete", value: current_hours},  {label: "Remaining", value: remaining} ];
+       var color = d3.scale.ordinal().domain([0, 1]).range(['	#D2B48C', '#ADD8E6', '#ADD8E6'])
 
        var pie = d3.layout.pie()
            .value(function(d) { return d.value; }).sort(null)
@@ -289,19 +292,32 @@ $(document).ready(function() {
         //console.log(responsiveW.width);
         var width = responsiveW.width
         var height = () => {
-           if(timeData.length < 6){
-          return 575}
+           if(timeData.length < 7){
+          return 600}
           else{
-            return timeData.length *75
+            return timeData.length * 75
           }
           }
         var padding = 110;
         var cValue = function(d) { return d.org_id}
-        var color = d3.scale.ordinal().domain(timeData.map(function(d){return d.org_id})).range(['#B0C4DE', '#F4A460', '#A52A2A', '#6495ED', '#8B0000'	])
+        var color = d3.scale.ordinal().domain(timeData.map(function(d){return d.org_id})).range(['#B0C4DE', '#BDB76B', '#E6E6FA', '#A52A2A', '#6495ED', '#8B0000', '#8FBC8F'])
 
         var tooltip = d3.select("#mainChart").append("div")
         .attr("class", "tooltip")
         .style("opacity", 0);
+
+        //Dynamic radius
+        var getRadius = function(d){
+            if(d.hours === 1){
+              return 15
+            }
+            if(d.hours > 1 && d.hours <= 7){
+              return (d.hours + 18) * 1.5
+            }
+            else{
+              return 34
+            }
+          }
 
     //created SVG container here
     var chart1 = d3.select('#mainChart')
@@ -350,18 +366,19 @@ $(document).ready(function() {
       .enter().append("svg:circle")
           .attr("cx", function (d) { return x(d.org_id) +33 } )
           .attr("cy", function (d) { return y(d.date) -9 } )
-          .attr("r", 22)
+          .attr("r", function(d) {return getRadius(d)})
           .style("fill", function(d) { return color(cValue(d));})
+          .style("fill-opacity", .85)
           .style("stroke", "black")
           .on("mouseover", function(d){
             d3.select(this).transition()
-                 .duration(500).attr("r", 34)
+                 .duration(500).attr("r", function(d) {return getRadius(d) * 1.5})
           })
           .on("click", function(d) {
               tooltip.transition()
                    .duration(400)
                    .style("opacity", .9);
-              tooltip.html(`<div class="card">
+              tooltip.html(`<div class="card shadow">
   <div class="card-body">
     <h5 class="card-title chart-title">${d.title}</h5>
     <h6 class="card-subtitle mb-2 text-muted"><strong>Role: </strong>${d.role}</h6>
@@ -377,7 +394,7 @@ $(document).ready(function() {
                .duration(400)
                .style("opacity", 0)
                d3.select(this).transition()
-                    .duration(500).attr("r", 22)
+                    .duration(500).attr("r", function(d) {return getRadius(d)})
       });
 
       function customYAxis(g) {
