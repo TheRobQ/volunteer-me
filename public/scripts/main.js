@@ -123,7 +123,8 @@ $(document).ready(function() {
     return getTIme(experiences, i)
   }
 //reload page on change
-window.onorientationchange = function() { window.location.reload(); };
+window.onorientationchange = function() {window.location.reload()};
+
 //after all reqs made AJAX COMPLETED
   $( document ).ajaxStop(function() {
     localStorage.setItem("group", groupData.id)
@@ -165,7 +166,6 @@ window.onorientationchange = function() { window.location.reload(); };
       //D3 main circle
       const mainCircle = ()=> {
         var responsive = d3.select("#chart").node().getBoundingClientRect()
-        console.log(responsive);
         let goal = userData[0].goal
         let towardGoal = userData[0].towardGoal
         let remaining = goal - towardGoal
@@ -173,8 +173,11 @@ window.onorientationchange = function() { window.location.reload(); };
         var dataset = [ { hours: towardGoal, display: currentHours},
           {  hours: remaining, display: 'none'} ]
 
-        var pie = d3.layout.pie().value(function(d) {
-          return d.hours
+        if(towardGoal >= goal){
+            dataset[1].hours = 0
+          }
+        var pie = d3.layout.pie().value(function(dataset) {
+          return dataset.hours
         }).sort(null).padAngle(.03)
 
         var w = responsive.width -6

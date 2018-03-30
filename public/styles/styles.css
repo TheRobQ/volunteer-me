@@ -348,6 +348,37 @@ div.tooltip {
 }
 }
 
+/* iPhone 10 and other unusual sizes */
+@media (max-width: 678px) {
+  #leftContent{
+  border-right: none;
+  border-left: none;
+  border-bottom: solid;
+  border-right-color: lightgray;
+  border-width: 1px;
+  margin-bottom: 30px;
+  padding-bottom: 13px;
+  padding-left: 10px;
+  padding-right: 10px
+}
+#bigNumber{
+  font-size: 170px;
+}
+#smallHours{
+  font-size: 70px;
+}
+.navbar-brand{
+  font-size: 35px;
+  margin-left: 18px;
+}
+.leftSideMid {
+  border-right: none;
+  width: 97%;
+  margin-left: 2%;
+  position: relative;
+}
+}
+
  /* // Small devices (landscape phones, less than 578px) */
  @media (max-width: 478px) {
    #leftContent{
