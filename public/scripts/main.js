@@ -39,7 +39,7 @@ $(document).ready(function() {
   $.get(`/users/${userId}`, function(response) {
     userData = response
     })
-    .then(function(response) {
+    .done(function(response) {
       $.get(`groups/${userData[0].group_id}`, data => {
       groupData = data[0];
         })
@@ -122,8 +122,8 @@ $(document).ready(function() {
     i++
     return getTIme(experiences, i)
   }
-
-
+//reload page on change
+window.onorientationchange = function() { window.location.reload(); };
 //after all reqs made AJAX COMPLETED
   $( document ).ajaxStop(function() {
     localStorage.setItem("group", groupData.id)
@@ -135,7 +135,8 @@ $(document).ready(function() {
     console.log(userData);
 
     //Add the greeting to the page
-    $('#welcome').append(`<h1 class="col-sm-12 greeting">Hello, ${userData[0].firstName} <span class="badge"><i class="${getCauseIcon(orgs)}"></i></span><span id="hours"> You've volunteered a total of  ${myTotal}!</span></h1>`)
+    $('#welcome').append(`<h1 class="col-sm-12 greeting">Hello, ${userData[0].firstName} <span class="badge"><i class="${getCauseIcon(orgs)}"></i></span></h1>
+  <h4 id="hours"> You've volunteered a total of  ${myTotal}!</h4>`)
 
     //Chart Goal
     $('#chart').append(`<h3 class="pieLabel">Your current goal is ${userData[0].goal /60} hours</h3>`)
@@ -163,24 +164,25 @@ $(document).ready(function() {
 
       //D3 main circle
       const mainCircle = ()=> {
-      let goal = userData[0].goal
-      let towardGoal = userData[0].towardGoal
-      let remaining = goal - towardGoal
-      let  currentHours = Math.floor(towardGoal / 60)
-      var dataset = [ { hours: towardGoal, display: currentHours},
-        {  hours: remaining, display: 'none'} ]
+        var responsive = d3.select("#chart").node().getBoundingClientRect()
+        console.log(responsive);
+        let goal = userData[0].goal
+        let towardGoal = userData[0].towardGoal
+        let remaining = goal - towardGoal
+        let  currentHours = Math.floor(towardGoal / 60)
+        var dataset = [ { hours: towardGoal, display: currentHours},
+          {  hours: remaining, display: 'none'} ]
 
-      var pie = d3.layout.pie().value(function(d) {
-        return d.hours
-      }).sort(null).padAngle(.03)
+        var pie = d3.layout.pie().value(function(d) {
+          return d.hours
+        }).sort(null).padAngle(.03)
 
-      var w = 450
-      var h = 450
-      var outerRadius = w / 2.95
-      var innerRadius = 223
-      // var color = d3.scale.category10()
-      var color = d3.scale.ordinal().domain([0, 1]).range(['#B0C4DE', '#CD5C5C'])
-      var arc = d3.svg.arc().outerRadius(outerRadius).innerRadius(innerRadius)
+        var w = responsive.width -6
+        var h = responsive.width -6
+        var outerRadius = w / 2.9
+        var innerRadius = responsive.width / 2.2
+        var color = d3.scale.ordinal().domain([0, 1]).range(['#B0C4DE', '#CD5C5C'])
+        var arc = d3.svg.arc().outerRadius(outerRadius).innerRadius(innerRadius)
 
       var svg = d3.select("#chart")
       .append("svg")
@@ -214,19 +216,22 @@ $(document).ready(function() {
 
       svg
       .append('svg:text')
-      .attr('x', -84)
+      .attr('x', 0)
       .attr('y', 30)
       .attr('class', 'id')
+      .style("text-anchor", "middle")
       .append('svg:tspan')
-      .attr('x', -50)
-      .attr('dy', -15)
+      .attr('x', 1)
+      .attr('dy', -8)
       .text(dataset[0].display)
-      .style({fill: 'black', 'font-size': '134px', 'font-family': 'Lobster, cursive', 'font-weight': '300'})
+      .attr('id', 'bigNumber')
+      .style({fill: 'black', 'font-family': 'Lobster, cursive', 'font-weight': '300'})
       .append('text:tspan')
-      .attr('x', -69)
-      .attr('dy', 60)
+      .attr('x', 1)
+      .attr('dy', responsive.width/6.8)
       .text('hours')
-      .style({fill: 'black', 'font-size': '60px', 'font-family': 'helvetica', 'font-weight': 400})
+      .attr('id', 'smallHours')
+      .style({fill: 'black', 'font-family': 'helvetica', 'font-weight': 400})
       }
 
       //PIE chart for group data
@@ -288,8 +293,7 @@ $(document).ready(function() {
 
 //Main chart of experiences
       const timeLine = () => {
-      var responsiveW = d3.select("#mainChart").node().getBoundingClientRect()
-        //console.log(responsiveW.width);
+        var responsiveW = d3.select("#mainChart").node().getBoundingClientRect()
         var width = responsiveW.width
         var height = () => {
            if(timeData.length < 6){
@@ -326,7 +330,7 @@ $(document).ready(function() {
     var chart1 = d3.select('#mainChart')
       	.append('svg:svg')
       	.attr('width', width)
-      	.attr('height', height())
+      	.attr('height', height()+96)
       	.attr('class', 'chart1')
 
     var y = d3.scale.ordinal()
@@ -335,12 +339,12 @@ $(document).ready(function() {
 
     var x = d3.scale.ordinal()
     	      .domain(timeData.map(function(d){return d.org_id}))
-    	      .rangePoints([padding, width-(padding+200) ])
+    	      .rangePoints([padding, width-(padding+100) ])
 
     var main = chart1.append('g')
   	.attr('transform', 'translate(' + 6 + ',' + 2 + ')')
-  	.attr('width', width-padding)
-  	.attr('height', height()-padding)
+  	.attr('width', width - padding)
+  	.attr('height', height() - padding)
   	.attr('class', 'main')
 
     // draw the x axis
@@ -348,9 +352,9 @@ $(document).ready(function() {
       	.scale(x)
       	.orient('bottom')
     main.append('g')
-      	.attr('transform', 'translate(30,' + (height() - padding +22) + ')')
+      	.attr('transform', 'translate(30,' + (height() - padding +24) + ')')
       	.attr('class', 'main axis org')
-        .style('fill', 'red')
+        .style('fill', 'gray')
       	.call(customXAxis);
 
     // draw the y axis
@@ -366,14 +370,15 @@ $(document).ready(function() {
 
     g.selectAll("scatter-dots")
       .data(timeData)
-      .enter().append("svg:circle")
-          .attr("cx", function (d) { return x(d.org_id) +42 } )
-          .attr("cy", function (d) { return y(d.date) -8 } )
-          .attr("r", function(d) {return getRadius(d)})
-          .style("fill", function(d) { return color(cValue(d));})
-          .style("fill-opacity", .75)
-          .style("stroke", "black")
-          .on("mouseover", function(d){
+      .enter()
+      .append("svg:circle")
+      .attr("cx", function (d) { return x(d.org_id) +42 } )
+      .attr("cy", function (d) { return y(d.date) -8 } )
+      .attr("r", function(d) {return getRadius(d)})
+      .style("fill", function(d) { return color(cValue(d));})
+      .style("fill-opacity", .75)
+      .style("stroke", "black")
+      .on("mouseover", function(d){
             d3.select(this).transition()
                  .duration(500).attr("r", function(d) {return getRadius(d) * 1.5})
           })
@@ -382,15 +387,15 @@ $(document).ready(function() {
                    .duration(400)
                    .style("opacity", .9);
               tooltip.html(`<div class="card border-dark shadow">
-  <div class="card-body">
-    <h5 class="card-title chart-title text-white">${d.title}</h5>
-    <h6 class="card-subtitle mb-2 text-muted"><strong>Role: </strong>${d.role}</h6>
-    <p class="card-text chart-text"><strong>What I did: </strong>${d.description}</p>
-    <h6 class="card-subtitle mb-2 text-muted">Time: ${d.hours} hours and ${d.minutes} minutes</h6>
-  </div>
-</div>`)
-				            .style("left", d3.select(this).attr("cx") + "px")
-				             .style("top", d3.select(this).attr("cy") + "px")
+              <div class="card-body">
+                <h5 class="card-title chart-title text-white">${d.title}</h5>
+                <h6 class="card-subtitle mb-2 text-muted"><strong>Role: </strong>${d.role}</h6>
+                <p class="card-text chart-text"><strong>What I did: </strong>${d.description}</p>
+                <h6 class="card-subtitle mb-2 text-muted">Time: ${d.hours} hours and ${d.minutes} minutes</h6>
+              </div>
+            </div>`)
+				      .style("left", d3.select(this).attr("cx") + "px")
+				      .style("top", d3.select(this).attr("cy") + "px")
       })
       .on("mouseout", function(d) {
           tooltip.transition()
@@ -408,34 +413,56 @@ $(document).ready(function() {
         .attr('font-size', '20px')
       }
 
-      function customXAxis(g) {
+      function customXAxisSmall(g) {
+        g.call(xAxis)
+        g.selectAll(".tick text").attr("x", -12).attr("y", 4)
+        .attr('fill', 'black')
+        .attr('font-family', 'helvetica')
+        .style('font-size', '17px')
+        .style("text-anchor", "end")
+        .attr("transform", function(d) {
+                return "rotate(-45)"
+              })
+      }
+
+      function customXAxisBig(g) {
         g.call(xAxis)
         g.selectAll(".tick text").attr("x", 9).attr("y", 27)
         .attr('fill', 'black')
         .attr('font-family', 'helvetica')
         .style('font-size', '19px')
-        // g.select(".domain").remove()
+              }
+
+      function customXAxis(g) {
+        if(width < 1113 && timeData.length > 2){
+          return  customXAxisSmall(g)
+            }
+          return customXAxisBig(g)
         }
-      var legend = main.selectAll(".legend")
+
+
+
+    if(width > 1113){
+      var legend = chart1.selectAll(".legend")
           .data(color.domain())
           .enter().append("g")
           .attr("class", "legend")
-          .attr("transform", function(d, i) { return "translate(-89," + (i +1) * 33 + ")"; });
+          .attr("transform", function(d, i) { return "translate(-39," + (i +1) * 35 + ")"; });
 
           legend.append("rect")
-            .attr("x", width - 20)
-            .attr("width", 21)
-            .attr("height", 21)
-            .style("fill", color)
-            .style("stroke", "black")
-
+          .attr("x", width - 20)
+          .attr("width", 21)
+          .attr("height", 21)
+          .style("fill", color)
+          .style("stroke", "black")
   // draw legend text
-        legend.append("text")
+          legend.append("text")
             .attr("x", width - 24)
             .attr("y", 9)
             .attr("dy", ".35em")
             .style("text-anchor", "end")
             .text(function(d) { return d;})
+          }
       }
 
       timeLine()
@@ -462,5 +489,10 @@ $(document).ready(function() {
           console.log(response);
         }
       })
+  })
+  $("#logOut").click(function(event){
+    event.preventDefault()
+    localStorage.removeItem('user')
+    window.location.href = "index.html"
   })
 })

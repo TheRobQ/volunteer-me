@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const knex = require('../knex')
 const bodyParser = require('body-parser')
+var jwt = require('jsonwebtoken');
 
 const userInfo = (req, res, next) => {
   knex('users').select('*').where({id: req.params.id})

@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>Voulenteer-Me</title>
   <!-- Bootstrap -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -22,52 +23,45 @@
   <nav class="navbar navbar-dark bg-dark">
     <span class="navbar-brand mb-0 h1">VOLUNTEER-ME</span>
   </nav>
-  <div class='container-fluid wholepage'>
-    <div class="row">
-      <div class="col-lg-2 left">
+  <div class='container wholepage'>
+    <div class="contentArea">
+      <div id="welcome" class='row bottom-border'>
       </div>
-      <div class="col-sm-8 contentArea">
-        <div id="welcome" class='row bottom-border'>
-        </div>
 
       <!-- Top Row  -->
-      <div class='row' id="topRow">
+    <div class='row' id="topRow">
         <!-- Main doughtnut chart -->
-        <div class="col-sm-8 col-md-5" id="chart">
+        <div class="col-sm-12 col-md-6 col-lg-5" id="leftContent">
+          <div id="chart">
+          </div>
+          <div class="leftSideMid">
+            <form class="form-inline" id="setGoal">
+              <label for="addGoal" id="label">Add Goal</label>
+              <input type="number" class="form-control" id="addGoal" placeholder="10" style="width: 70px">
+              <button type="submit" class="btn btn-primary" id="sendGoal">Set goal</button>
+            </form>
+          </div>
         </div>
         <!-- right content -->
-        <div class="col-sm-8 col-md-7" id="rightContent">
+        <div class="col-sm-12 col-md-6 col-lg-7" id="rightContent">
           <div id="recent">
           </div>
-            <div id="passion"> </div>
-            <div id="group">
-            </div>
-            <div class="row" id='groupsInfoRow'>
-                <div id='groupChart' class="col-sm-4">
-                </div>
-                <div id='groupInfo' class="col-sm-8">
-                </div>
+          <div id="passion"> </div>
+          <div id="group">
           </div>
-        </div>
+          <div class="row" id='groupsInfoRow'>
+            <div id='groupChart' class="col-sm-12 col-md-12 col-lg-5">
+            </div>
+            <div id='groupInfo' class="col-sm-12 col-md-12 col-lg-7">
+            </div>
+            <div class="rightSideMid col-sm-12">
+            <a href='/add.html' role="button" class="btn btn-primary btn-lg btn-block" id="addExp">Enter a new experience</a>
+          </div>
+          </div>
       </div>
-      <!-- Goal Set row -->
-      <div class="row" id="midRow">
-        <div class="col-sm-10 col-md-5 leftSideMid">
-          <form class="form-inline" id="setGoal">
-              <div class="form-group">
-                  <input type="text" readonly class="form-control-plaintext" id="setGoal" value="Set A New Goal:" style="width: 270px">
-              </div>
-              <div class="form-group">
-                  <input type="number" class="form-control" id="addGoal" placeholder="10" style="width: 100px">
-              </div>
-              <button type="submit" class="btn btn-primary" id="sendGoal">Set goal</button>
-        </form>
-      </div>
-      <div class="col-sm-10 col-md-7 align-bottom rightSideMid">
-      <a href='/add.html' role="button" class="btn btn-primary btn-lg btn-block" id="addExp">Enter a new experience</a>
     </div>
-      </div>
 
+      <!-- Before the chart -->
       <div class="row" id="beforeChart">
         <div class="col-sm-12">
           <h1 id="timeHeader">Your Volunteer Story</h1>
@@ -79,11 +73,13 @@
         <div id="mainChart" class="col-sm-12">
         </div>
       </div>
-
-
+      <div class="row">
+        <div class="col-sm-12">
+          <a href='/index.html' role="button" class="btn btn-primary btn-lg btn-block" id="logOut">LOG OUT</a>
+        </div>
+      </div>
+    </div>
   </div>
-  </div>
-</div>
 
 
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

@@ -3,9 +3,9 @@ const router = express.Router()
 const knex = require('../knex')
 const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser')
+var jwt = require('jsonwebtoken');
 
-
-const store = (req,res,sendit)=>{
+const store = (req,res,next)=>{
   var salt = bcrypt.genSaltSync(4)
   var hash = bcrypt.hashSync(req.body.password, salt);
   knex('users').insert({
@@ -23,7 +23,7 @@ const store = (req,res,sendit)=>{
   })
 }
 
-const compare = (req,res,sendit)=>{
+const compare = (req,res,next)=>{
   knex('users').where({
   email: req.body.email
   }).first()
@@ -31,11 +31,13 @@ const compare = (req,res,sendit)=>{
     if(user ===  undefined){
       res.sendStatus(404)
     }
+    console.log(user);
     bcrypt.compare(req.body.password, user.password, function(err, ver) {
         ver ? res.status(200).send({id:user.id}): res.sendStatus(401)
     })
   })
 }
+
 module.exports = {
   store,
   compare

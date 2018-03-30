@@ -51,7 +51,7 @@ textarea{
 }
 
 #logo{
-  font-size: 88px;
+  font-size: 5rem;
   font-weight: bold;
   font-family: 'Lobster', cursive;
   text-align: center;
@@ -66,4 +66,27 @@ textarea{
 
 .btn{
   height: 55px;
+}
+
+@media (max-width: 575px) {
+  #login{
+    display: block;
+  }
+
+  #noAccount{
+    display: block;
+    font-size: 20px;
+    margin-left: 0px;
+    text-align: left;
+  }
+
+  label {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+input {
+  height: 45px;
+}
+
 }

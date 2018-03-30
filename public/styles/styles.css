@@ -1,5 +1,6 @@
 body{
   font-family: 'helvetica', sans-serif;
+  background-color: #E6D8C1;
 }
 
 h3{
@@ -14,6 +15,11 @@ strong{
   color: #CD5C5C
 }
 /* Override Boostrap */
+.container{
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto
+}
 .btn-primary{
   background-color: CornflowerBlue  !important;
   border-color: darkgray;
@@ -47,15 +53,7 @@ strong{
 }
 
 /* Main Page CSS */
-.groupsHeader{
-font-size: 24px
-}
-
-.wholepage{
-  padding: 0px;
-  background-color: #E6D8C1;
-}
-
+/* main area */
 .contentArea{
   background-color: white;
   padding-left: 25px;
@@ -66,56 +64,88 @@ font-size: 24px
   border-width: 3px;
   border-color: darkgray;
 }
-
+.groupsHeader{
+font-size: 24px
+}
+.wholepage{
+  padding: 0px;
+}
 .left{
   display: block;
   height: 100vh
 }
-
 .hidden{
   display: none;
 }
-
 .greeting{
   font-size: 88px;
   font-weight: bold;
   font-family: 'Lobster', cursive;
 }
-
 .badge{
   font-size: 35px;
   margin-left: -12px;
 }
-
 .bottom-border{
   border-bottom: solid;
   border-color: lightgray;
   margin-bottom: 38px;
 }
 
+/* Main Doughnut */
+#bigNumber{
+  font-size: 154px
+}
+#smallHours{
+  font-size: 70px;
+}
 .pieLabel{
-  margin-bottom: 12%;
+  margin-bottom: 5%;
   text-align: center;
+  font-size: 175%
 }
-
-.leftSideMid{
-  border-right: solid;
-  border-left-color: lightgray;
-  border-width: 1px;
-  padding-top: 30px;
-  height: 97px;
+#chart{
+  padding-left: 0;
 }
-
-.rightSideMid{
-  padding-top: 30px;
-  height: 97px;
-  padding-right: 35px;
-  padding-left: 35px;
-}
-
 .sideBoard{
   margin-bottom: 10%;
   font-size: 20px
+}
+
+/* Add new exp */
+.rightSideMid{
+  display: block;
+}
+
+#addExp{
+  display: inline-block;
+}
+
+/* SET GOAL form */
+.leftSideMid {
+  display: block;
+  border-right: none;
+  width: 93%;
+  margin-left: 5%;
+  position: absolute;
+  bottom: 0;
+}
+#addGoal{
+  height: 55px;
+  margin-right: 10px;
+}
+#sendGoal{
+  height: 55px;
+  width: 28%
+}
+#label{
+  font-size: 33px;
+  margin-right: 15px;
+  margin-top: 9px;
+}
+#setGoal{
+  font-weight: 500;
+  font-size: 20px;
 }
 
 #extitle{
@@ -136,36 +166,26 @@ font-size: 24px
   margin-right: -25px;
 }
 #rightContent{
-  /* background-color: lightgray; */
   padding-left: 35px;
   padding-right: 35px;
-  margin-bottom: -24px
+  position: relative;
 }
-#setGoal{
-  font-weight: 500;
-  font-size: 25px;
-  margin-top: 15px;
-}
-#addGoal{
-  margin-left: -62px;
-  margin-right: 10px;
-}
-#sendGoal{
-  margin-top: 0px;
-  width: 130px;
+#leftContent{
+  border-right: solid;
+  border-left-color: lightgray;
+  border-width: 1px;
+  padding-left: 0;
+  padding-right: 0;
+  position: relative;
 }
 
 #hours{
   font-weight: normal;
   font-size: 26px;
   font-family: 'helvetica', sans-serif;
+  margin-left: 10px;
 }
-#chart{
-  border-right: solid;
-  border-left-color: lightgray;
-  border-width: 1px;
-  margin-bottom: -10px;
-}
+
 #groupChart{
   margin-top: 20px;
 }
@@ -174,11 +194,7 @@ font-size: 24px
 }
 
 #groupsInfoRow{
-  margin-bottom: 30px;
-}
-
-#addExp{
-  margin-top: 20px;
+  /* margin-bottom: 30px; */
 }
 
 #groupInfo{
@@ -201,6 +217,7 @@ font-size: 24px
   margin-left: -26px;
   margin-right: -26px
 }
+
 /* CHART */
 #mainChart{
   /* box-shadow: 1px 8px 18px 0px grey; */
@@ -267,14 +284,122 @@ div.tooltip {
 .legend{
   margin-bottom: 5px;
 }
-/* // Extra small devices (portrait phones, less than 576px) */
-@media (max-width: 575px) { ... }
-
-/* // Small devices (landscape phones, less than 768px) */
-@media (max-width: 767px) { ... }
+/* // Large devices (desktops, less than 1200px) */
+@media (max-width: 1199px) {
+  #bigNumber{
+    font-size: 114px;
+  }
+  #smallHours{
+    font-size: 50px;
+  }
+ }
 
 /* // Medium devices (tablets, less than 992px) */
-@media (max-width: 991px) { ... }
+@media (max-width: 991px) {
+  #leftContent{
+  border-right: solid;
+  border-left: none;
+  border-right-color: lightgray;
+  border-width: 1px;
+}
+#bigNumber{
+  font-size: 270px;
+}
+#smallHours{
+  font-size: 100px;
+}
+#setGoal{
+  font-weight: 500;
+  font-size: 25px;
+  margin-top: 5px;
+}
+.pieLabel{
+  font-size: 35px;
+  font-weight: bold;
+  margin-bottom: 15%
+}
+#recent{
+  display: none
+}
+#passion{
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+.sideBoard{
+  margin-bottom: 4%;
+  font-size: 20px
+}
+}
 
-/* // Large devices (desktops, less than 1200px) */
-@media (max-width: 1199px) { ... }
+/* // Medium devices (tablets, 768px and up) */
+@media (max-width: 768px) {
+  #leftContent{
+  border-right: solid;
+  border-left: none;
+  border-right-color: lightgray;
+  border-width: 1px;
+  position: relative;
+}
+#bigNumber{
+  font-size: 160px;
+}
+#smallHours{
+  font-size: 60px;
+}
+}
+
+ /* // Small devices (landscape phones, less than 578px) */
+ @media (max-width: 478px) {
+   #leftContent{
+   border-right: none;
+   border-left: none;
+   border-bottom: solid;
+   border-right-color: lightgray;
+   border-width: 1px;
+   margin-bottom: 30px;
+   padding-bottom: 13px;
+   padding-left: 10px;
+   padding-right: 10px
+ }
+ #bigNumber{
+   font-size: 120px;
+ }
+ #smallHours{
+   font-size: 40px;
+ }
+ .navbar-brand{
+   font-size: 35px;
+   margin-left: 18px;
+ }
+ #recent{
+   display: inline-block;
+ }
+ .org{
+   display: none
+ }
+ .pieLabel{
+   font-size: 35px;
+   font-weight: bold;
+   margin-bottom: 5%
+ }
+ .leftSideMid {
+   border-right: none;
+   width: 97%;
+   margin-left: 2%;
+   position: relative;
+ }
+ #setGoal{
+   font-weight: 500;
+   font-size: 20px;
+   margin-top: 5px;
+ }
+ #addGoal{
+   height: 55px;
+   margin-right: 10px;
+   width: 10%
+ }
+ #sendGoal{
+   height: 55px;
+   width: 26%
+ }
+  }
