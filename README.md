@@ -24,7 +24,4 @@ User: doris@gmail.com
 Pass: cats123
 
 ## Acknowledgments
-
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
+UnSelf for providing annonymized data and inspiration for the project. 
