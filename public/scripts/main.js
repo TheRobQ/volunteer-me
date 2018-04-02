@@ -180,10 +180,10 @@ window.onorientationchange = function() {window.location.reload()};
           return dataset.hours
         }).sort(null).padAngle(.03)
 
-        var w = responsive.width -6
-        var h = responsive.width -6
-        var outerRadius = w / 2.9
-        var innerRadius = responsive.width / 2.2
+        var w = responsive.width -35
+        var h = responsive.width -35
+        var outerRadius = w / 2.3
+        var innerRadius = responsive.width / 3.1
         var color = d3.scale.ordinal().domain([0, 1]).range(['#B0C4DE', '#CD5C5C'])
         var arc = d3.svg.arc().outerRadius(outerRadius).innerRadius(innerRadius)
 
@@ -192,7 +192,7 @@ window.onorientationchange = function() {window.location.reload()};
       .attr({width: w, height: h, class: 'mainCircle'})
       .append('g')
       .attr({
-        transform: 'translate(' + w / 2 + ',' + h / 2 + ')'
+        transform: 'translate(' + w / 2 + ',' + h / 2.1 + ')'
       });
 
       var path = svg.selectAll('path')

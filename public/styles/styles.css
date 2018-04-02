@@ -77,6 +77,7 @@ font-size: 24px
 .hidden{
   display: none;
 }
+/* TOP */
 .greeting{
   font-size: 88px;
   font-weight: bold;
@@ -93,6 +94,9 @@ font-size: 24px
 }
 
 /* Main Doughnut */
+.mainCircle{
+  margin-bottom: 10px;
+}
 #bigNumber{
   font-size: 154px
 }
@@ -106,27 +110,20 @@ font-size: 24px
 }
 #chart{
   padding-left: 0;
+  margin-bottom: 6%;
+  position:relative;
 }
 .sideBoard{
   margin-bottom: 10%;
   font-size: 20px
 }
 
-/* Add new exp */
-.rightSideMid{
-  display: block;
-}
-
-#addExp{
-  display: inline-block;
-}
-
 /* SET GOAL form */
 .leftSideMid {
   display: block;
   border-right: none;
-  width: 93%;
-  margin-left: 5%;
+  width: 86%;
+  margin-left: 14%;
   position: absolute;
   bottom: 0;
 }
@@ -147,6 +144,16 @@ font-size: 24px
   font-weight: 500;
   font-size: 20px;
 }
+/* Add new exp */
+.rightSideMid{
+  display: block;
+  margin-top: 2%;
+}
+
+#addExp{
+  display: inline-block;
+}
+
 
 #extitle{
   margin-bottom: 3px;
@@ -177,6 +184,7 @@ font-size: 24px
   padding-left: 0;
   padding-right: 0;
   position: relative;
+  height: auto;
 }
 
 #hours{
@@ -339,12 +347,43 @@ div.tooltip {
   border-right-color: lightgray;
   border-width: 1px;
   position: relative;
+  height: auto;
 }
 #bigNumber{
-  font-size: 160px;
+  font-size: 140px;
 }
 #smallHours{
   font-size: 60px;
+}
+.pieLabel{
+  margin-bottom: 10%
+}
+.leftSideMid {
+  display: block;
+  border-right: none;
+  width: 86%;
+  margin-left: 7%;
+  position: absolute;
+  bottom: 0;
+}
+#setGoal{
+  font-weight: 500;
+  font-size: 15px;
+  margin-top: 5px;
+}
+#sendGoal{
+  height: 35px;
+  width: 28%
+}
+#addGoal{
+  height: 35px;
+  margin-right: 10px;
+  width: 7%
+}
+#label{
+  font-size: 25px;
+  margin-right: 15px;
+  margin-top: 9px;
 }
 }
 
