@@ -4,7 +4,7 @@ $(document).ready(function() {
 
     const title = $("input#what").val();
     const description = $("#description").val();
-    const org = $("input#org").val();
+    const org = $("select#org").val();
     const role = $("input#role").val();
     const hours = $("input#setHours").val();
     const minutes = $("input#minutes").val();
