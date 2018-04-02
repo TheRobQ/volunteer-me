@@ -305,7 +305,7 @@ window.onorientationchange = function() {window.location.reload()};
             return 630
           }
           else{
-            return timeData.length * 90
+            return timeData.length * 85
           }
           }
         var padding = 110;
@@ -333,7 +333,7 @@ window.onorientationchange = function() {window.location.reload()};
     var chart1 = d3.select('#mainChart')
       	.append('svg:svg')
       	.attr('width', width)
-      	.attr('height', height()+96)
+      	.attr('height', height()+66)
       	.attr('class', 'chart1')
 
     var y = d3.scale.ordinal()
