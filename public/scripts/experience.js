@@ -14,7 +14,10 @@ $(document).ready(function() {
     const towardGoal = (hours, minutes) =>{
     return (parseInt(hours) * 60) + parseInt(minutes)
     }
-
+    if(hours === '0' && minutes === '0'){
+      $('.alert').removeClass('hidden')
+    }
+    else{
     $.post("/experiences/", {
         title: title,
         user_id: user_id,
@@ -40,5 +43,6 @@ $(document).ready(function() {
         console.log(response);
       }
     })
+  }
   })
 })

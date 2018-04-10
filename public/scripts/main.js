@@ -1,40 +1,31 @@
-
 $(document).ready(function() {
-  var goal = 0;
-  var towardGoal = 0;
+  let goal = 0;
+  let towardGoal = 0;
   const userId = localStorage.getItem("user");
-  var experiences;
-  var userData;
-  var groupData;
-  var remaining = 0;
-  var orgs =[];
-  var modeObject = {};
-  var timeData = [];
+  let experiences;
+  let userData;
+  let groupData;
+  let remaining = 0;
+  const orgs =[];
+  const modeObject = {};
+  const timeData = [];
 
   $('body').ready(function(event) {
-    $.ajax({
-      url: `/users/${userId}/experiences`,
-      method: 'GET',
-      success: function(response) {
+
+    $.get(`/users/${userId}/experiences`, function(response) {
         experiences = response
-      },
-      error: function(response) {
-        console.log(response);
-      }
-    }).done(function(experiences){
-      for (let i = 0; i < experiences.length; i++) {
-        $.ajax({
-          url: `/orgs/${experiences[i].org_id}`,
-          type: 'GET',
-          success: function(thedata){
-            orgs.push(thedata[0])
-          },
-          error: function(response){
-            console.log(response)
+      })
+      .done(function(experiences){
+        for (let i = 0; i < experiences.length; i++) {
+          $.get(`/orgs/${experiences[i].org_id}`, function(response){
+              orgs.push(response[0])
+            })
           }
         })
-      }
-    })
+        .fail(function() {
+            //Pop up generic error
+            $('#toast').removeClass('hidden')
+          })
 
   $.get(`/users/${userId}`, function(response) {
     userData = response
@@ -47,16 +38,18 @@ $(document).ready(function() {
 
   //Get most frequent cause
   const getMode = array => {
-    var maxCount = 1
-    var mostFrequent;
+    let maxCount = 1
+    let mostFrequent;
+    const modeObject ={}
+    console.log(array.length);
     for (let i = 0; i < array.length; i++) {
-      var cause = array[i].cause;
+      let cause = array[i].cause;
       if (!modeObject[cause]) {
         modeObject[cause] = 1;
       }else{
       modeObject[cause]++
     }
-      if(modeObject[cause] > maxCount){
+    if(modeObject[cause] > maxCount){
         maxCount = modeObject[cause]
         mostFrequent = array[i].cause
       }
@@ -64,24 +57,23 @@ $(document).ready(function() {
     return mostFrequent
   };
 
-  const getCauseIcon = (fn) => {
-      if(getMode(orgs) === 'Animals'){
+  const getCauseIcon = (string) => {
+      if(string === 'Animals'){
         return "fas fa-paw"
-        console.log(getMode(orgs));
       }
-       if(getMode(orgs) === 'Community Building'){
+       if(string === 'Community Building'){
         return "fas fa-handshake"
       }
-       if(getMode(orgs) === 'Advocacy'){
+       if(string === 'Advocacy'){
         return "fas fa-bullhorn"
       }
-      if(getMode(orgs) === 'Arts & Culture'){
+      if(string === 'Arts & Culture'){
        return "fas fa-paint-brush"
      }
-     if(getMode(orgs) === 'Homeless & Housing'){
+     if(string === 'Homeless & Housing'){
       return "fas fa-home"
     }
-    if(getMode(orgs) === 'Health & Medicine'){
+    if(string === 'Health & Medicine'){
      return "fas fa-heartbeat"
    }
         return  "fas fa-thumbs-up"
@@ -99,9 +91,10 @@ $(document).ready(function() {
     return experiences
   }
 
+  // total hours for banner
   const getTotalHours = (array) => {
-    var hours = 0
-    var minutes = 0
+    let hours = 0
+    let minutes = 0
     for(let i = 0; i < array.length; i++){
         hours += array[i].hours
         minutes += array[i].minutes
@@ -114,6 +107,7 @@ $(document).ready(function() {
       return myTime
   }
 
+
   const getTIme =(experiences, i) =>{
     if(i === experiences.length){
       return
@@ -122,21 +116,18 @@ $(document).ready(function() {
     i++
     return getTIme(experiences, i)
   }
-//reload page on change
-window.onorientationchange = function() {window.location.reload()};
+
 
 //after all reqs made AJAX COMPLETED
   $( document ).ajaxStop(function() {
     localStorage.setItem("group", groupData.id)
     var myTotal = getTotalHours(experiences)
     var passion = getMode(orgs)
-    $.when(setOrg(experiences, orgs)).then(getTIme(experiences, i = 0))
-    $.when(getMode(orgs)).then(getCauseIcon(getMode))
-    console.log(timeData)
-    console.log(userData);
+    setOrg(experiences, orgs)
+    getTIme(experiences, i = 0)
 
     //Add the greeting to the page
-    $('#welcome').append(`<h1 class="col-sm-12 greeting">Hello, ${userData[0].firstName} <span class="badge"><i class="${getCauseIcon(orgs)}"></i></span></h1>
+    $('#welcome').append(`<h1 class="col-sm-12 greeting">Hello, ${userData[0].firstName} <span class="badge"><i class="${getCauseIcon(passion)}"></i></span></h1>
   <h4 id="hours"> You've volunteered a total of  ${myTotal}!</h4>`)
 
     //Chart Goal
@@ -221,7 +212,7 @@ window.onorientationchange = function() {window.location.reload()};
       .append('svg:text')
       .attr('x', 0)
       .attr('y', 30)
-      .attr('class', 'id')
+      .attr('class', 'doughnut')
       .style("text-anchor", "middle")
       .append('svg:tspan')
       .attr('x', 1)

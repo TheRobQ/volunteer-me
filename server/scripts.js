@@ -41,7 +41,6 @@ const upDateGroupGoal = (req, res, next) =>{
 }
 
 const newExperience = (req, res, next) => {
-    console.log(req.body);
     return knex('orgs')
     .where({name: req.body.org})
     .returning('id')
@@ -65,7 +64,6 @@ const newExperience = (req, res, next) => {
       .where({id: req.body.user_id})
       .increment('towardGoal', parseInt(req.body.towardGoal))
       .then((data) => {
-          console.log(data)
       })
     })
     .then(data => {

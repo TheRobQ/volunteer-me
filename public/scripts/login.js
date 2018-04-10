@@ -16,11 +16,9 @@ $(document).ready(function() {
       success: function(data) {
         localStorage.setItem("user", data.id)
         window.location.href = "landing.html"
-        console.log('success');
       },
       error: function(data) {
-        console.log(data);
-        if(data .status === 404){
+        if(data.status === 404){
             $('#toast').removeClass('hidden')
         }
         else if(data.status === 401){

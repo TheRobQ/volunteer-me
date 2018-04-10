@@ -78,20 +78,20 @@
             </div>
             <div class="form-group row col-sm-12">
               <label for="role">Your role</label>
-              <input type="text" class="form-control" id="role" placeholder="Your Role">
+              <input type="text" class="form-control" id="role" placeholder="Your Role" required>
             </div>
             <div class="form-group row">
               <div class="col-2">
                 <label for="setHours">Hours</label>
-                <input type="number" class="form-control form-inline" id="setHours" value="0">
+                <input type="number" class="form-control form-inline" id="setHours" value="0" required>
               </div>
               <div class="col-2">
                 <label for="minutes">Minutes</label>
-                <input type="number" class="form-control form-inline" id="minutes" value="0">
+                <input type="number" class="form-control form-inline" id="minutes" value="0" required>
               </div>
               <div class='col-3'>
                 <label for="date">Date</label>
-                <input class="form-control" type="date" value="" id="date">
+                <input class="form-control" type="date" value="" id="date" required>
               </div>
               <div class='col-5 buttons'>
                 <button type="submit" class="btn btn-primary" id='send'>Submit</button>
@@ -99,6 +99,12 @@
               </div>
             </div>
           </form>
+        </div>
+        <div class="alert alert-warning alert-dismissible fade show hidden" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <strong>Hi there!</strong> You should add time for your experience.
         </div>
       </div>
     </div>
