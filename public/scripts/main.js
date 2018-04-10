@@ -1,21 +1,19 @@
 $(document).ready(function() {
   let goal = 0;
   let towardGoal = 0;
-  const userId = localStorage.getItem("user");
+  let remaining = 0;
   let experiences;
   let userData;
   let groupData;
-  let remaining = 0;
   const orgs =[];
   const modeObject = {};
-  const timeData = [];
+  const timeLineData = [];
+  const userId = localStorage.getItem("user");
 
-  $('body').ready(function(event) {
-
-    $.get(`/users/${userId}/experiences`, function(response) {
+  $.get(`/users/${userId}/experiences`, function(response) {
         experiences = response
-      })
-      .done(function(experiences){
+    })
+    .done(function(experiences){
         for (let i = 0; i < experiences.length; i++) {
           $.get(`/orgs/${experiences[i].org_id}`, function(response){
               orgs.push(response[0])
@@ -24,7 +22,7 @@ $(document).ready(function() {
         })
         .fail(function() {
             //Pop up generic error
-            $('#toast').removeClass('hidden')
+            $('#error-message').removeClass('hidden')
           })
 
   $.get(`/users/${userId}`, function(response) {
@@ -37,11 +35,10 @@ $(document).ready(function() {
       })
 
   //Get most frequent cause
-  const getMode = array => {
+  let mostFrequentCause = array => {
     let maxCount = 1
     let mostFrequent;
-    const modeObject ={}
-    console.log(array.length);
+    let modeObject ={}
     for (let i = 0; i < array.length; i++) {
       let cause = array[i].cause;
       if (!modeObject[cause]) {
@@ -80,6 +77,7 @@ $(document).ready(function() {
   }
 
   //Align orgs to correct experience
+  //Let *should* handle this in the loops
   const setOrg = (experiences, orgs) =>{
     for(let i = 0; i < experiences.length; i++){
       for(let j = 0; j < orgs.length; j++){
@@ -95,37 +93,30 @@ $(document).ready(function() {
   const getTotalHours = (array) => {
     let hours = 0
     let minutes = 0
-    for(let i = 0; i < array.length; i++){
-        hours += array[i].hours
-        minutes += array[i].minutes
-      }
-      if(minutes > 60){
-          hours += Math.floor(minutes / 60)
-          minutes = minutes % 60
-      }
-      var myTime = `${hours} hours and ${minutes} minutes`
+    array.map(element => {
+      hours+= element.hours;
+      minutes+= element.minutes
+    })
+    if(minutes >= 60){
+        hours += Math.floor(minutes / 60)
+        minutes = minutes % 60
+    }
+      let myTime = `${hours} hours and ${minutes} minutes`
       return myTime
   }
 
-
-  const getTIme =(experiences, i) =>{
-    if(i === experiences.length){
-      return
-    }
-    timeData.push(experiences[i])
-    i++
-    return getTIme(experiences, i)
+  const getTIme = (experiences) =>{
+    experiences.map(element =>   timeLineData.push(element))
   }
-
 
 //after all reqs made AJAX COMPLETED
   $( document ).ajaxStop(function() {
     localStorage.setItem("group", groupData.id)
     var myTotal = getTotalHours(experiences)
-    var passion = getMode(orgs)
+    var passion = mostFrequentCause(orgs)
     setOrg(experiences, orgs)
-    getTIme(experiences, i = 0)
-
+    getTIme(experiences)
+    console.log(timeLineData);
     //Add the greeting to the page
     $('#welcome').append(`<h1 class="col-sm-12 greeting">Hello, ${userData[0].firstName} <span class="badge"><i class="${getCauseIcon(passion)}"></i></span></h1>
   <h4 id="hours"> You've volunteered a total of  ${myTotal}!</h4>`)
@@ -290,18 +281,18 @@ $(document).ready(function() {
         var responsiveW = d3.select("#mainChart").node().getBoundingClientRect()
         var width = responsiveW.width
         var height = () => {
-           if(timeData.length < 6){
+           if(timeLineData.length < 6){
           return 600}
-          if(timeData.length === 7){
+          if(timeLineData.length === 7){
             return 630
           }
           else{
-            return timeData.length * 85
+            return timeLineData.length * 85
           }
           }
         var padding = 110;
         var cValue = function(d) { return d.org_id}
-        var color = d3.scale.ordinal().domain(timeData.map(function(d){return d.org_id})).range(['#B0C4DE', '#BDB76B', '#E6E6FA', '#A52A2A', '#6495ED', '#8B0000', '#8FBC8F'])
+        var color = d3.scale.ordinal().domain(timeLineData.map(function(d){return d.org_id})).range(['#B0C4DE', '#BDB76B', '#E6E6FA', '#A52A2A', '#6495ED', '#8B0000', '#8FBC8F'])
 
         var tooltip = d3.select("#mainChart").append("div")
         .attr("class", "tooltip")
@@ -328,11 +319,11 @@ $(document).ready(function() {
       	.attr('class', 'chart1')
 
     var y = d3.scale.ordinal()
-        .domain(timeData.map(function(d){return d.date}))
+        .domain(timeLineData.map(function(d){return d.date}))
         .rangePoints([height()-(padding+25), padding])
 
     var x = d3.scale.ordinal()
-    	      .domain(timeData.map(function(d){return d.org_id}))
+    	      .domain(timeLineData.map(function(d){return d.org_id}))
     	      .rangePoints([padding, width-(padding+100) ])
 
     var main = chart1.append('g')
@@ -363,7 +354,7 @@ $(document).ready(function() {
     var g = main.append("svg:g");
 
     g.selectAll("scatter-dots")
-      .data(timeData)
+      .data(timeLineData)
       .enter()
       .append("svg:circle")
       .attr("cx", function (d) { return x(d.org_id) +42 } )
@@ -428,7 +419,7 @@ $(document).ready(function() {
               }
 
       function customXAxis(g) {
-        if(width < 1113 && timeData.length > 2){
+        if(width < 1113 && timeLineData.length > 2){
           return  customXAxisSmall(g)
             }
           return customXAxisBig(g)
@@ -463,7 +454,7 @@ $(document).ready(function() {
       mainCircle()
       groupPie()
     })
-  })
+
 
   $("#setGoal").submit(function(event) {
       const value = $("input#addGoal").val();
