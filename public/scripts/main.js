@@ -93,7 +93,7 @@ $(document).ready(function() {
   const getTotalHours = (array) => {
     let hours = 0
     let minutes = 0
-    array.map(element => {
+    array.forEach(element => {
       hours+= element.hours;
       minutes+= element.minutes
     })
@@ -105,8 +105,8 @@ $(document).ready(function() {
       return myTime
   }
 
-  const getTIme = (experiences) =>{
-    experiences.map(element =>   timeLineData.push(element))
+  const getTIme = (experiences) => {
+    experiences.forEach(element =>   timeLineData.push(element))
   }
 
 //after all reqs made AJAX COMPLETED
@@ -278,9 +278,9 @@ $(document).ready(function() {
 
 //Main chart of experiences
       const timeLine = () => {
-        var responsiveW = d3.select("#mainChart").node().getBoundingClientRect()
+        let responsiveW = d3.select("#mainChart").node().getBoundingClientRect()
         var width = responsiveW.width
-        var height = () => {
+        let height = () => {
            if(timeLineData.length < 6){
           return 600}
           if(timeLineData.length === 7){
@@ -290,8 +290,8 @@ $(document).ready(function() {
             return timeLineData.length * 85
           }
           }
-        var padding = 110;
-        var cValue = function(d) { return d.org_id}
+        const padding = 110;
+        var colorValue = function(d) { return d.org_id}
         var color = d3.scale.ordinal().domain(timeLineData.map(function(d){return d.org_id})).range(['#B0C4DE', '#BDB76B', '#E6E6FA', '#A52A2A', '#6495ED', '#8B0000', '#8FBC8F'])
 
         var tooltip = d3.select("#mainChart").append("div")
@@ -299,15 +299,15 @@ $(document).ready(function() {
         .style("opacity", 0);
 
         //Dynamic radius
-        var getRadius = function(d){
+        let getRadius = function(d){
             if(d.hours === 1){
               return 15
             }
-            if(d.hours > 1 && d.hours <= 7){
+            if(d.hours > 1 && d.hours <= 8){
               return (d.hours + 18) * 1.5
             }
             else{
-              return 34
+              return 42
             }
           }
 
@@ -360,7 +360,7 @@ $(document).ready(function() {
       .attr("cx", function (d) { return x(d.org_id) +42 } )
       .attr("cy", function (d) { return y(d.date) -8 } )
       .attr("r", function(d) {return getRadius(d)})
-      .style("fill", function(d) { return color(cValue(d));})
+      .style("fill", function(d) { return color(colorValue(d));})
       .style("fill-opacity", .75)
       .style("stroke", "black")
       .on("mouseover", function(d){
