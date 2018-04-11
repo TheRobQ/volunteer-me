@@ -10,9 +10,10 @@ $(document).ready(function() {
   const timeLineData = [];
   const userId = localStorage.getItem("user");
 
+  //Get all experiences for the signed in user
   $.get(`/users/${userId}/experiences`, function(response) {
         experiences = response
-    })
+    })//Now get all the organizations for each expereince
     .done(function(experiences){
         for (let i = 0; i < experiences.length; i++) {
           $.get(`/orgs/${experiences[i].org_id}`, function(response){
@@ -35,10 +36,9 @@ $(document).ready(function() {
       })
 
   //Get most frequent cause
-  let mostFrequentCause = array => {
+  const mostFrequentCause = array => {
     let maxCount = 1
     let mostFrequent;
-    let modeObject ={}
     for (let i = 0; i < array.length; i++) {
       let cause = array[i].cause;
       if (!modeObject[cause]) {
@@ -54,31 +54,29 @@ $(document).ready(function() {
     return mostFrequent
   };
 
-  const getCauseIcon = (string) => {
-      if(string === 'Animals'){
-        return "fas fa-paw"
-      }
-       if(string === 'Community Building'){
-        return "fas fa-handshake"
-      }
-       if(string === 'Advocacy'){
-        return "fas fa-bullhorn"
-      }
-      if(string === 'Arts & Culture'){
-       return "fas fa-paint-brush"
-     }
-     if(string === 'Homeless & Housing'){
-      return "fas fa-home"
-    }
-    if(string === 'Health & Medicine'){
-     return "fas fa-heartbeat"
-   }
+  //Get the icon based on most frequenrt cause
+  const getCauseIcon = mostFrequentResult => {
+    switch(mostFrequentResult){
+      case 'Animals':
+        return "fas fa-paw";
+      case 'Community Building':
+        return "fas fa-handshake";
+      case  'Advocacy':
+      "fas fa-bullhorn";
+      case 'Arts & Culture':
+        return "fas fa-paint-brush";
+      case  'Homeless & Housing':
+        return "fas fa-home";
+      case 'Health & Medicine':
+        return "fas fa-heartbeat";
+      default:
         return  "fas fa-thumbs-up"
+    }
   }
 
   //Align orgs to correct experience
   //Let *should* handle this in the loops
-  const setOrg = (experiences, orgs) =>{
+  const alignOrgsWithExperiences = (experiences, orgs) =>{
     for(let i = 0; i < experiences.length; i++){
       for(let j = 0; j < orgs.length; j++){
         if(experiences[i].org_id === orgs[j].id){
@@ -112,20 +110,21 @@ $(document).ready(function() {
 //after all reqs made AJAX COMPLETED
   $( document ).ajaxStop(function() {
     localStorage.setItem("group", groupData.id)
-    var myTotal = getTotalHours(experiences)
-    var passion = mostFrequentCause(orgs)
-    setOrg(experiences, orgs)
+    const myTotal = getTotalHours(experiences)
+    const passion = mostFrequentCause(orgs)
+    const causeIcon = getCauseIcon(passion)
+    alignOrgsWithExperiences(experiences, orgs)
     getTIme(experiences)
-    console.log(timeLineData);
-    //Add the greeting to the page
-    $('#welcome').append(`<h1 class="col-sm-12 greeting">Hello, ${userData[0].firstName} <span class="badge"><i class="${getCauseIcon(passion)}"></i></span></h1>
-  <h4 id="hours"> You've volunteered a total of  ${myTotal}!</h4>`)
 
-    //Chart Goal
+    //Add the greeting to the page and the cause icon and total hours
+    $('#welcome').append(`<h1 class="col-sm-12 greeting">Hello, ${userData[0].firstName} <span class="badge"><i class="${causeIcon}"></i></span></h1>
+    <h4 id="hours"> You've volunteered a total of  ${myTotal}!</h4>`)
+
+    //Add text to  Goal doughnut
     $('#chart').append(`<h3 class="pieLabel">Your current goal is ${userData[0].goal /60} hours</h3>`)
     //Current passion
     $("#passion").append(`<h3><strong>Your current passion is: </strong>${passion}</h3>`)
-    //Add experiences to the page
+    //Add most recent experience to the page
       $('#recent').append(`
         <h3 style="max-width: 38rem, font-weight: bold">Your most recent volunteer experience</h3>
         <div class="card border-dark mb-3" style="max-width: 38rem;">
@@ -135,8 +134,9 @@ $(document).ready(function() {
           <p class="card-text">${experiences[0].description}</p>
         </div>
       </div>`)
-      $('#group').append(`<h3 class="groupsHeader"><strong>Your group: <span class="red">${groupData.name}</strong></span></h3>`)
 
+      //Info on user's group
+      $('#group').append(`<h3 class="groupsHeader"><strong>Your group: <span class="red">${groupData.name}</strong></span></h3>`)
       $("#groupInfo").append(`<h4 class="sideBoard">${groupData.name} goal: <span class="red"><strong>${groupData.goal_hours}</strong></span></h4>
         <h4 class="sideBoard"> ${groupData.name} current hours: <span class="red"><strong>${groupData.current_hours}</strong> </span></h4>
         <h4 class="sideBoard">Your current contribution: <span class="red"><strong>${Math.floor(userData[0].towardGroup / 60)} hours</span></strong><h4>`)
@@ -144,32 +144,31 @@ $(document).ready(function() {
        //Add you total Time to the page
        // $("#main").append(`<h2>You've put in ${myTotal}!</h2> `)
 
-
-      //D3 main circle
+      //D3 progess doughnut
       const mainCircle = ()=> {
-        var responsive = d3.select("#chart").node().getBoundingClientRect()
+        let responsive = d3.select("#chart").node().getBoundingClientRect()
         let goal = userData[0].goal
         let towardGoal = userData[0].towardGoal
         let remaining = goal - towardGoal
         let  currentHours = Math.floor(towardGoal / 60)
-        var dataset = [ { hours: towardGoal, display: currentHours},
+        let dataset = [ { hours: towardGoal, display: currentHours},
           {  hours: remaining, display: 'none'} ]
 
         if(towardGoal >= goal){
             dataset[1].hours = 0
           }
-        var pie = d3.layout.pie().value(function(dataset) {
+        let pie = d3.layout.pie().value(function(dataset) {
           return dataset.hours
         }).sort(null).padAngle(.03)
 
-        var w = responsive.width -35
-        var h = responsive.width -35
-        var outerRadius = w / 2.3
-        var innerRadius = responsive.width / 3.1
-        var color = d3.scale.ordinal().domain([0, 1]).range(['#B0C4DE', '#CD5C5C'])
-        var arc = d3.svg.arc().outerRadius(outerRadius).innerRadius(innerRadius)
+        let w = responsive.width -35
+        let h = responsive.width -35
+        let outerRadius = w / 2.3
+        let innerRadius = responsive.width / 3.1
+        let color = d3.scale.ordinal().domain([0, 1]).range(['#B0C4DE', '#CD5C5C'])
+        let arc = d3.svg.arc().outerRadius(outerRadius).innerRadius(innerRadius)
 
-      var svg = d3.select("#chart")
+      let svg = d3.select("#chart")
       .append("svg")
       .attr({width: w, height: h, class: 'mainCircle'})
       .append('g')
@@ -177,7 +176,7 @@ $(document).ready(function() {
         transform: 'translate(' + w / 2 + ',' + h / 2.1 + ')'
       });
 
-      var path = svg.selectAll('path')
+      let path = svg.selectAll('path')
       .data(pie(dataset))
       .enter()
       .append('path')
@@ -190,7 +189,7 @@ $(document).ready(function() {
       .style("stroke", "black")
 
       path.transition().duration(1750).attrTween('d', function(d) {
-        var interpolate = d3.interpolate({
+        let interpolate = d3.interpolate({
           startAngle: 0,
           endAngle: 0
         }, d);
@@ -221,20 +220,20 @@ $(document).ready(function() {
 
       //PIE chart for group data
       const groupPie = () =>{
-        var groupGoal = groupData.goal_hours
-        var current_hours = groupData.current_hours
+        let groupGoal = groupData.goal_hours
+        let current_hours = groupData.current_hours
         let remaining = groupGoal - current_hours
-        var w = 200
-        var h = 200
-        var r = 100
+        const w = 200
+        const h = 200
+        const r = 100
 
-       var data = [ {label:"Complete", value: current_hours},  {label: "Remaining", value: remaining} ];
-       var color = d3.scale.ordinal().domain([0, 1]).range(['#B0C4DE', '#D2B48C',  '#ADD8E6'])
+       let data = [ {label:"Complete", value: current_hours},  {label: "Remaining", value: remaining} ];
+       let color = d3.scale.ordinal().domain([0, 1]).range(['#B0C4DE', '#D2B48C',  '#ADD8E6'])
 
-       var pie = d3.layout.pie()
+       let pie = d3.layout.pie()
            .value(function(d) { return d.value; }).sort(null)
 
-       var holder = d3.select("#groupChart")
+       let holder = d3.select("#groupChart")
            .append("svg:svg")
            .data([data])
            .attr("width", w)
@@ -242,10 +241,10 @@ $(document).ready(function() {
            .append("svg:g")
            .attr("transform", "translate(" + r + "," + r + ")")
 
-       var arc = d3.svg.arc()
+       let arc = d3.svg.arc()
            .outerRadius(r);
 
-       var arcs = holder.selectAll("g.slice")
+       let arcs = holder.selectAll("g.slice")
            .data(pie)
            .enter()
            .append("svg:g")
@@ -257,7 +256,7 @@ $(document).ready(function() {
             .attr('stroke', '#fff')
             .attr('stroke-width', '3')
             .transition().duration(1600).attrTween('d', function(d) {
-                 var interpolate = d3.interpolate({
+                 let interpolate = d3.interpolate({
                    startAngle: 0,
                    endAngle: 0
                  }, d);
@@ -279,7 +278,7 @@ $(document).ready(function() {
 //Main chart of experiences
       const timeLine = () => {
         let responsiveW = d3.select("#mainChart").node().getBoundingClientRect()
-        var width = responsiveW.width
+        let width = responsiveW.width
         let height = () => {
            if(timeLineData.length < 6){
           return 600}
@@ -291,10 +290,10 @@ $(document).ready(function() {
           }
           }
         const padding = 110;
-        var colorValue = function(d) { return d.org_id}
-        var color = d3.scale.ordinal().domain(timeLineData.map(function(d){return d.org_id})).range(['#B0C4DE', '#BDB76B', '#E6E6FA', '#A52A2A', '#6495ED', '#8B0000', '#8FBC8F'])
+        let colorValue = function(d) { return d.org_id}
+        let color = d3.scale.ordinal().domain(timeLineData.map(function(d){return d.org_id})).range(['#B0C4DE', '#BDB76B', '#E6E6FA', '#A52A2A', '#6495ED', '#8B0000', '#8FBC8F'])
 
-        var tooltip = d3.select("#mainChart").append("div")
+        let tooltip = d3.select("#mainChart").append("div")
         .attr("class", "tooltip")
         .style("opacity", 0);
 
