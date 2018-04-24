@@ -12,8 +12,8 @@ suite('user test', addDatabaseHooks(() => {
     request(app).post('/users').set('Accept', 'application/json').send(
 {  firstName: "Irma",
   lastName: "Patterson",
-  email: 'irma@gmail.com',
-  password: 'dogs123',
+  email: 'demo@demo.com',
+  password: 'demo',
   goal:16,
   group_id: 5})
   .expect(204, {}, done)

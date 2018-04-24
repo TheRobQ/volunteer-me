@@ -35,7 +35,18 @@ exports.seed = function(knex, Promise) {
             towardGroup: 60,
             group_id: 5,
             salt: '$2a$04$tkD4lEMsCXrX3X1Eoa6NTu'
-        }
+        },
+        {
+          firstName: 'Rob',
+          lastName: 'Q',
+          email: 'demo@demo.com',
+          password: '$2a$04$MB9.BCB5thHOyKDV7JXipup2wY4FZnM./CW6hUV6uUumlLIcw3coa',
+          goal: 16,
+          towardGoal: 2,
+          towardGroup: 1,
+          group_id: 5,
+          salt: '$2a$04$MB9.BCB5thHOyKDV7JXipu',
+        },
       ]);
     });
 };

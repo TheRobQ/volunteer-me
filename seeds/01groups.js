@@ -9,7 +9,7 @@ exports.seed = function(knex, Promise) {
         {name: 'Work Group', goal_hours: 10, current_hours: 0},
         {name: 'The Wombats of Boulder County', goal_hours: 40, current_hours: 10},
         {name: 'College Sorority', goal_hours: 50, current_hours: 15},
-        {name: 'Town Civic Group', goal_hours: 40, current_hours: 30},
+        {name: 'Town Civic Group', goal_hours: 100, current_hours: 25},
         {name: 'College Fraternity', goal_hours: 50, current_hours: 2}
       ]);
     });
