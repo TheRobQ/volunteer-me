@@ -1,6 +1,6 @@
 # Volunteer-Me
 
-A proof-of-concept app that uses D3 to visualize user-entered data and track volunteeering goals. 
+A proof-of-concept app that uses D3 to visualize user-entered data and track volunteering goals. 
 
 ### Goal tracking for individuals and groups
 
